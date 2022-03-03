@@ -10,20 +10,23 @@ int main(){
     cin >> n;
 
     vector<i64> v(n);
-    for(i64 i=0;i<n;i++){
+    for(i64 i = 0; i < n; i++){
         cin >> v[i];
     }
     sort(v.begin(),v.end());
 
-    vector<i64> a(100);
-
-    for(i64 i=0;i<n;i++){        
-        if(v[i]%2==0){
-            a[i]=v[i];
-            
+    vector<i64> a;
+    for(i64 i = 0;i < n; i++) {        
+        if(v[i] % 2 == 0){
+            a.push_back(v[i]);
         }
     }
-    for(i64 i=0;i<n;i++){
-        
-    }
+    for(i64 i = 0; i < a.size(); i++) {
+        cout << a[i] << " ";    
+    } cout << endl;
+    
 }
+
+/*
+v[i] == v.at(i)
+*/
