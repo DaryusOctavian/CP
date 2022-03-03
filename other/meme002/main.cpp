@@ -1,8 +1,9 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-typedef int64_t i64;
-using d6= long double;
+
+using i64 = int64_t;
+using d6 = long double;
 
 int main(){
     i64 n;
