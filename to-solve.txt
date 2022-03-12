@@ -1,2 +1,4 @@
-digitsum: LTAI-2021-10-25/Q
-golombrulers: LTAI-2021-11-16/L
+kattis{
+  digitsum: LTAI-2021-10-25/Q,
+  golombrulers: LTAI-2021-11-16/L
+}
