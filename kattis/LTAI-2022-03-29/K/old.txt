@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+typedef int64_t i64;
+
+int main() {
+  i64 n, m;
+  cin >> n >> m;
+  char apples[n][m];
+  for (i64 i = 0; i < n; i++) {
+    for (i64 j = 0; j < m; j++) {
+      cin >> apples[i][j];
+    }
+  }
+
+  bool found = true;
+  while (found) {
+    found = false;
+    for (i64 i = 0; i < n - 1; i++) {
+      for (i64 j = 0; j < m; j++) {
+        if (apples[i][j] == 'a' &&
+            (apples[i + 1][j] != '#' && apples[i + 1][j] != 'a')) {
+          apples[i][j] = '.';
+          apples[i + 1][j] = 'a';
+          found = true;
+        }
+      }
+    }
+  }
+
+  for (i64 i = 0; i < n; i++) {
+    for (i64 j = 0; j < m; j++) {
+      cout << apples[i][j];
+    }
+    cout << endl;
+  }
+
+  return 0;
+}
