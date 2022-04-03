@@ -4,7 +4,6 @@ kattis{
 }
 
 left to do{
-  https://open.kattis.com/contests/bkd2hh
   https://open.kattis.com/contests/ot7uav
   https://open.kattis.com/contests/i48npc
   https://open.kattis.com/contests/tw7udy
