@@ -43,7 +43,7 @@ int main() {
   }
 
   string currLine, strRes;
-  i64 res = 1e12;
+  i64 res = 1e16;
   for (i64 i = 0; i < a; i++) {
     for (i64 j = 0; j < b; j++) {
       if (mp[i][j] == '#') {

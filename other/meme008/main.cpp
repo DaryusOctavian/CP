@@ -5,18 +5,15 @@ using namespace std;
 typedef int64_t i64;
 
 int main() {
-  string line;
-  cin >> line;
-  vector<i64> v(26, 0);
-  for (i64 i = 0; i < line.size(); i++) {
-    v[line[i] - 97]++;
+  i64 n;
+  cin >> n;
+  i64 a[n][n];
+  for (i64 i = 0; i < n; i++) {
+    for (i64 j = 0; j < n; j++) {
+      cin >> a[i][j];
+    }
   }
-  sort(v.begin(), v.end());
 
-  if (v[25] > 1) {
-    cout << 0 << endl;
-  } else {
-    cout << 1 << endl;
-  }
+  sort(a, a + n * n);
   return 0;
 }
