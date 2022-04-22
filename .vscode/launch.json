@@ -5,6 +5,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "java",
+      "name": "Launch Main",
+      "request": "launch",
+      "mainClass": "other.meme010.Main",
+      "projectName": "VSCode_77590fd3"
+    },
+    {
       "stopOnEntry": true,
       "name": "g++ - Debug active file",
       "type": "cppdbg",
