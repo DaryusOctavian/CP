@@ -148,19 +148,5 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  i64 n;
-  cin >> n;
-  vp64 a(n);
-  for (auto &x : a) {
-    cin >> x.ft >> x.sd;
-  }
-
-  i64 sum = 0;
-  for (auto &x : a) {
-    sum += x.sd;
-  }
-
-  cout << sum << endl;
-
   return 0;
 }

@@ -1,7 +1,81 @@
 #ifndef __AHA__HEADER
 #define __AHA__HEADER
 
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <array>
+#include <atomic>
+#include <bitset>
+#include <cassert>
+#include <ccomplex>
+#include <cctype>
+#include <cerrno>
+#include <cfenv>
+#include <cfloat>
+#include <chrono>
+#include <cinttypes>
+#include <ciso646>
+#include <climits>
+#include <clocale>
+#include <cmath>
+#include <complex>
+#include <condition_variable>
+#include <csetjmp>
+#include <csignal>
+#include <cstdarg>
+#include <cstdbool>
+#include <cstddef>
+#include <cstdint>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <ctgmath>
+#include <ctime>
+#include <cwchar>
+#include <cwctype>
+#include <deque>
+#include <exception>
+#include <forward_list>
+#include <fstream>
+#include <functional>
+#include <future>
+#include <initializer_list>
+#include <iomanip>
+#include <ios>
+#include <iosfwd>
+#include <iostream>
+#include <istream>
+#include <iterator>
+#include <limits>
+#include <list>
+#include <locale>
+#include <map>
+#include <memory>
+#include <mutex>
+#include <new>
+#include <numeric>
+#include <ostream>
+#include <queue>
+#include <random>
+#include <ratio>
+#include <regex>
+#include <scoped_allocator>
+#include <set>
+#include <sstream>
+#include <stack>
+#include <stdexcept>
+#include <streambuf>
+#include <string>
+#include <system_error>
+#include <thread>
+#include <tuple>
+#include <type_traits>
+#include <typeindex>
+#include <typeinfo>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <valarray>
+#include <vector>
 using namespace std;
 #define g0 get<0>
 #define g1 get<1>
@@ -38,17 +112,16 @@ using i6 = int64_t;
 using i64 = int64_t;
 using u3 = uint32_t;
 using u6 = uint64_t;
-using u64 = uint64_t;
 
 using d6 = long double;
 using d64 = long double;
 
 using p3 = pair<i3, i3>;
-using p64 = pair<i64, i64>;
 using vi3 = vec<i3>;
 using vp3 = vec<p3>;
 
 using p6 = pair<i6, i6>;
+using p64 = pair<i64, i64>;
 using vi6 = vec<i6>;
 using vi64 = vec<i64>;
 using vp6 = vec<p6>;
@@ -140,27 +213,43 @@ template <typename T> ostream &operator<<(ostream &stream, const deq<T> &v) {
 #endif
 
 int main() {
-  ios_base::sync_with_stdio(false);
+  ios::sync_with_stdio(false);
   cin.tie(0);
   cout.tie(0);
-#ifdef LOCAL
-  ifstream cin{"input.txt"};
-  ofstream cout{"output.txt"};
-#endif
+  // #ifdef LOCAL
+  //   ifstream cin{"input.txt"};
+  //   ofstream cout{"output.txt"};
+  // #endif
 
-  i64 n;
-  cin >> n;
-  vp64 a(n);
-  for (auto &x : a) {
-    cin >> x.ft >> x.sd;
+  while (true) {
+    i64 n;
+    cin >> n;
+    if (n == -1) {
+      return 0;
+    }
+    vector<pair<pair<d64, d64>, d64>> v(n);
+    for (i64 i = 0; i < n; i++) {
+      d64 a, b, c;
+      cin >> a >> b >> c;
+      v[i].ft.ft = a;
+      v[i].ft.sd = b;
+      v[i].sd = c;
+    }
+
+    i64 mx = 0;
+    for (i64 i = 0; i < n; i++) {
+      i64 crt = 0;
+      for (i64 j = 0; j < n; j++) {
+        d64 dst = (v[j].ft.ft - v[i].ft.ft) * (v[j].ft.ft - v[i].ft.ft) +
+                  (v[j].ft.sd - v[i].ft.sd) * (v[j].ft.sd - v[i].ft.sd);
+        dst = sqrt(dst);
+        if (dst <= v[i].sd + v[j].sd && (dst >= abs(v[i].sd - v[j].sd))) {
+          crt++;
+        }
+      }
+      mx = max(mx, crt);
+    }
+
+    cout << mx << endl;
   }
-
-  i64 sum = 0;
-  for (auto &x : a) {
-    sum += x.sd;
-  }
-
-  cout << sum << endl;
-
-  return 0;
 }
