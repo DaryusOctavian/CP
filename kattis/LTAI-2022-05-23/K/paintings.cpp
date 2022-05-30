@@ -139,6 +139,50 @@ template <typename T> ostream &operator<<(ostream &stream, const deq<T> &v) {
 }
 #endif
 
+vp64 exc;
+i64 res;
+vi64 best, v;
+vec<string> m1;
+map<string, i64> m2;
+
+void solve(i64 n, i64 pos, vi64 sol) {
+  if (pos == n) {
+    res++;
+    if (res == 1) {
+      best = sol;
+    }
+    return;
+  }
+
+  for (auto x : v) {
+    bool found = false;
+    for (auto y : sol) {
+      if (x == y) {
+        found = true;
+        break;
+      }
+    }
+    if (!found) {
+      sol.psb(x);
+      bool good = true;
+      for (auto y : exc) {
+        for (i64 i = 0; i < sz(sol) - 1; i++) {
+          if (sol[i] == y.ft && sol[i + 1] == y.sd) {
+            good = false;
+          }
+          if (sol[i] == y.sd && sol[i + 1] == y.ft) {
+            good = false;
+          }
+        }
+      }
+      if (good) {
+        solve(n, pos + 1, sol);
+      }
+      sol.ppb();
+    }
+  }
+}
+
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(0);
@@ -147,6 +191,43 @@ int main() {
   ifstream cin{"input.txt"};
   ofstream cout{"output.txt"};
 #endif
+
+  i64 tc;
+  cin >> tc;
+  while (tc--) {
+    i64 a;
+    cin >> a;
+    v.resize(a);
+    m1.resize(a + 1);
+    m2.clear();
+    for (i64 i = 1; i <= a; i++) {
+      string x;
+      cin >> x;
+      m1[i] = x;
+      m2[x] = i;
+      v[i - 1] = i;
+    }
+    i64 b;
+    cin >> b;
+    exc.resize(b);
+    for (auto &i : exc) {
+      string x, y;
+      cin >> x >> y;
+      i.ft = m2[x];
+      i.sd = m2[y];
+    }
+
+    res = 0;
+    best.clear();
+    vi64 sol;
+    solve(a, 0, sol);
+
+    cout << res << endl;
+    for (auto x : best) {
+      cout << m1[x] << " ";
+    }
+    cout << endl;
+  }
 
   return 0;
 }
