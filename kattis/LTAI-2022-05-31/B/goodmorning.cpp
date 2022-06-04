@@ -1,13 +1,13 @@
 /*
-________  ________  ________  ________  ________ _________
-|\   ___ \|\   __  \|\   ____\|\   __  \|\   ____\\___   ___\
-\ \  \_|\ \ \  \|\  \ \  \___|\ \  \|\  \ \  \___\|___ \  \_|
- \ \  \ \\ \ \   _  _\ \_____  \ \  \\\  \ \  \       \ \  \
-  \ \  \_\\ \ \  \\  \\|____|\  \ \  \\\  \ \  \____   \ \  \
-   \ \_______\ \__\\ _\ ____\_\  \ \_______\ \_______\  \ \__\
-    \|_______|\|__|\|__|\_________\|_______|\|_______|   \|__|
-                       \|_________|
-*/
+ ________  ________  ________  ________  ________ _________
+ |\   ___ \|\   __  \|\   ____\|\   __  \|\   ____\\___   ___\
+ \ \  \_|\ \ \  \|\  \ \  \___|\ \  \|\  \ \  \___\|___ \  \_|
+  \ \  \ \\ \ \   _  _\ \_____  \ \  \\\  \ \  \       \ \  \
+   \ \  \_\\ \ \  \\  \\|____|\  \ \  \\\  \ \  \____   \ \  \
+    \ \_______\ \__\\ _\ ____\_\  \ \_______\ \_______\  \ \__\
+     \|_______|\|__|\|__|\_________\|_______|\|_______|   \|__|
+                        \|_________|
+ */
 #ifndef __AHA__HEADER
 #define __AHA__HEADER
 
@@ -164,6 +164,57 @@ template <typename T> ostream &operator<<(ostream &stream, const deq<T> &v) {
 }
 #endif
 
+vi64 cases(i64 x) {
+  if (x == 1) {
+    return {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+  } else if (x == 2) {
+    return {2, 3, 5, 6, 8, 9, 0};
+  } else if (x == 3) {
+    return {3, 6, 9};
+  } else if (x == 4) {
+    return {4, 5, 6, 7, 8, 9, 0};
+  } else if (x == 5) {
+    return {5, 6, 8, 9, 0};
+  } else if (x == 6) {
+    return {6, 9};
+  } else if (x == 7) {
+    return {7, 8, 9, 0};
+  } else if (x == 8) {
+    return {8, 9, 0};
+  } else if (x == 9) {
+    return {9};
+  } else if (x == 0) {
+    return {0};
+  }
+}
+
+i64 sze(i64 n) {
+  i64 res = 0;
+  while (n) {
+    n /= 10;
+    res++;
+  }
+  return res;
+}
+
+i64 pwr(i64 x, i64 y) {
+  i64 res = 1;
+  for (i64 i = 0; i < y; i++) {
+    res *= x;
+  }
+  return res;
+}
+
+i64 gtnr(i64 n, i64 pos) {
+  // reverse n;
+  i64 res = 0;
+  while (n) {
+    res = res * 10 + n % 10;
+    n /= 10;
+  }
+  return res / pwr(10, pos) % 10;
+}
+
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(0);
@@ -172,6 +223,27 @@ int main() {
   ifstream cin{"input.txt"};
   ofstream cout{"output.txt"};
 #endif
+
+  i64 tc;
+  cin >> tc;
+  vi64 current;
+  while (tc--) {
+    i64 n;
+    cin >> n;
+    current = {1, 2};
+    i64 res = 0;
+    while (sze(n) != sze(res)) {
+      i64 tmp = 1e9;
+      for (i64 i = 0; i < sz(current); i++) {
+        tmp = min(tmp, abs(gtnr(n, sze(res)) - gtnr(current[i], sze(res))));
+      }
+      res *= 10;
+      res += tmp;
+      current = cases(res % 10);
+    }
+
+    cout << res << endl;
+  }
 
   return 0;
 }

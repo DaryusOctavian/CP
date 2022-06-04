@@ -164,14 +164,92 @@ template <typename T> ostream &operator<<(ostream &stream, const deq<T> &v) {
 }
 #endif
 
+vp64 exc;
+vi64 best;
+vb used;
+i64 res;
+
+void solve(i64 pos, i64 n, vi64 sol) {
+  if (pos == n) {
+    res++;
+    if (res == 1) {
+      best = sol;
+    }
+    return;
+  }
+  for (i64 i = 0; i < n; i++) {
+    if (!used[i]) {
+      used[i] = true;
+      sol.pb(i);
+      if (sol.size() < 2) {
+        solve(pos + 1, n, sol);
+      } else {
+        bool ok = true;
+        for (auto e : exc) {
+          if (e.ft == sol[sol.size() - 1] && e.sd == sol[sol.size() - 2]) {
+            ok = false;
+            break;
+          }
+          if (e.ft == sol[sol.size() - 2] && e.sd == sol[sol.size() - 1]) {
+            ok = false;
+            break;
+          }
+        }
+        if (ok) {
+          solve(pos + 1, n, sol);
+        }
+      }
+      sol.ppb();
+      used[i] = false;
+    }
+  }
+}
+
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(0);
   cout.tie(0);
-#ifdef LOCAL
-  ifstream cin{"input.txt"};
-  ofstream cout{"output.txt"};
-#endif
+  //#ifdef LOCAL
+  //  ifstream cin{"input.txt"};
+  //  ofstream cout{"output.txt"};
+  //#endif
+
+  i64 tc;
+  cin >> tc;
+  while (tc--) {
+    res = 0;
+    i64 a;
+    cin >> a;
+    map<string, i64> m1;
+    vec<string> m2(a);
+    used.resize(a);
+    for (i64 i = 0; i < a; i++) {
+      string s;
+      cin >> s;
+      m1[s] = i;
+      m2[i] = s;
+    }
+
+    i64 b;
+    cin >> b;
+    exc.clear();
+    exc.resize(b);
+    for (i64 i = 0; i < b; i++) {
+      string s1, s2;
+      cin >> s1 >> s2;
+      exc[i].ft = m1[s1];
+      exc[i].sd = m1[s2];
+    }
+
+    vi64 sol;
+    solve(0, a, sol);
+
+    cout << res << endl;
+    for (auto e : best) {
+      cout << m2[e] << " ";
+    }
+    cout << endl;
+  }
 
   return 0;
 }
