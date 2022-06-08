@@ -1,6 +1,13 @@
 kattis{
   digitsum: LTAI-2021-10-25/Q,
   golombrulers: LTAI-2021-11-16/L
+  https://open.kattis.com/problems/taxing
+  https://open.kattis.com/problems/erase
+  https://open.kattis.com/problems/piperotation
+  https://open.kattis.com/problems/sumoftheothers
+  https://open.kattis.com/problems/milestones
+  https://open.kattis.com/problems/natjecanje
+  https://open.kattis.com/problems/classpicture
 }
 
 left to do{
