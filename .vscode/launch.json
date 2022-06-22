@@ -21,7 +21,6 @@
       "projectName": "VSCode_77590fd3"
     },
     {
-      "stopOnEntry": true,
       "name": "g++ - Debug active file",
       "type": "cppdbg",
       "request": "launch",

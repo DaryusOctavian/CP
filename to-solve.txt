@@ -1,23 +1,37 @@
 kattis{
-  digitsum: LTAI-2021-10-25/Q,
-  golombrulers: LTAI-2021-11-16/L
-  https://open.kattis.com/problems/taxing
-  https://open.kattis.com/problems/piperotation
-  https://open.kattis.com/problems/milestones
-  https://open.kattis.com/problems/natjecanje
-  https://open.kattis.com/problems/classpicture
+	digitsum: LTAI-2021-10-25/Q,
+	golombrulers: LTAI-2021-11-16/L
+	https://open.kattis.com/problems/taxing
+	https://open.kattis.com/problems/piperotation
+	https://open.kattis.com/problems/milestones
+	https://open.kattis.com/problems/natjecanje
+	https://open.kattis.com/problems/classpicture
+	https://open.kattis.com/problems/ultraquicksort
+	https://open.kattis.com/problems/distance
+	https://open.kattis.com/problems/alicedigital
+	https://open.kattis.com/problems/floppy
+	https://open.kattis.com/problems/snowflakes
+	https://open.kattis.com/problems/prva
+	https://open.kattis.com/problems/flagquiz
+	https://open.kattis.com/problems/dreamer
+	https://open.kattis.com/problems/towering
+	https://open.kattis.com/problems/victorythroughsynergy
+
+	https://open.kattis.com/contests/basicinterpreter
+
+	https://open.kattis.com/problems/citations
 }
 
 left to do{
-  https://open.kattis.com/contests/i48npc
-  https://open.kattis.com/contests/tw7udy
-  https://open.kattis.com/contests/qorc7d
-  https://open.kattis.com/contests/uqd3fr
-  https://open.kattis.com/contests/k75svr
-  https://open.kattis.com/contests/iavyp6
-  https://open.kattis.com/contests/yq6yyg
-  https://open.kattis.com/contests/k9za9i
-  https://open.kattis.com/contests/xduod9
-  https://open.kattis.com/contests/hj9qyx
-  https://open.kattis.com/contests/bz6ko3
+	https://open.kattis.com/contests/i48npc
+	https://open.kattis.com/contests/tw7udy
+	https://open.kattis.com/contests/qorc7d
+	https://open.kattis.com/contests/uqd3fr
+	https://open.kattis.com/contests/k75svr
+	https://open.kattis.com/contests/iavyp6
+	https://open.kattis.com/contests/yq6yyg
+	https://open.kattis.com/contests/k9za9i
+	https://open.kattis.com/contests/xduod9
+	https://open.kattis.com/contests/hj9qyx
+	https://open.kattis.com/contests/bz6ko3
 }
