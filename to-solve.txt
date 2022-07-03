@@ -35,3 +35,7 @@ left to do{
 	https://open.kattis.com/contests/hj9qyx
 	https://open.kattis.com/contests/bz6ko3
 }
+
+data structures{
+	fenwick tree
+}
