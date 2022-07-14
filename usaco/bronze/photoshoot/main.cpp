@@ -217,16 +217,21 @@ int main() {
 
   i64 n;
   cin >> n;
-  for (auto x : range(n)) {
-    str s;
-    cin >> s;
-    if (s == "yes" || s == "Yes" || s == "YEs" || s == "YES" || s == "yEs" ||
-        s == "yeS" || s == "yES") {
-      cout << "YES" << endl;
-    } else {
-      cout << "NO" << endl;
+  str s;
+  cin >> s;
+
+  i64 res = 0;
+  for (i64 i = n - 2; i >= 0; i -= 2) {
+    if (s[i] == s[i + 1]) {
+      continue;
+    }
+
+    if ((s[i + 1] == 'G') == (res % 2 == 1)) {
+      res++;
     }
   }
+
+  cout << res << endl;
 
   return 0;
 }

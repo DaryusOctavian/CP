@@ -2,8 +2,8 @@
 ________  ________  ________  ________  ________ _________
 |\   ___ \|\   __  \|\   ____\|\   __  \|\   ____\___   ___\
 \ \  \_|\ \ \  \|\  \ \  \___|\ \  \|\  \ \  \___\|___ \  \_|
- \ \  \ \ \ \   _  _\ \_____  \ \  \\  \ \  \       \ \  \
-  \ \  \_\ \ \  \  \|____|\  \ \  \\  \ \  \____   \ \  \
+ \ \  \ \ \ \   _  _\ \_____  \ \  \  \ \  \       \ \  \
+  \ \  \_\ \ \  \  \|____|\  \ \  \  \ \  \____   \ \  \
    \ \_______\ \__\ _\ ____\_\  \ \_______\ \_______\  \ \__\
     \|_______|\|__|\|__|\_________\|_______|\|_______|   \|__|
                        \|_________|
@@ -29,16 +29,18 @@ using namespace __gnu_pbds;
 #define pb(x) push_back(x)
 #define ppb(x) pop_back(x)
 #define pp(x) pop_back(x)
-#define bg(x) x.begin(x)
+#define bg(x) x.begin()
 #define ed(x) x.end()
 #define col(x) x.begin(), x.end()
 #define srt(x) sort(x.begin(), x.end())
+#define rvs(x) reverse(x.begin(), x.end())
 
 #define pq priority_queue
 #define fn function
 #ifdef LOCAL
 // #define git stauDBG_MACRO_NO_WARNING
 // #include <dbg.h>
+using i128 = __int128_t;
 #else
 #define dbg(...)
 #endif
@@ -57,7 +59,6 @@ using byte = int8_t;
 using i3 = int32_t;
 using i6 = int64_t;
 using i64 = int64_t;
-using i128 = __int128_t;
 using u3 = uint32_t;
 using u6 = uint64_t;
 using u64 = uint64_t;
@@ -66,11 +67,11 @@ using d6 = long double;
 using d64 = long double;
 
 using p3 = pair<i3, i3>;
-using p64 = pair<i64, i64>;
 using vi3 = vec<i3>;
 using vp3 = vec<p3>;
 
 using p6 = pair<i6, i6>;
+using p64 = pair<i64, i64>;
 using vi6 = vec<i6>;
 using vi64 = vec<i64>;
 using vd6 = vec<d6>;
@@ -163,12 +164,58 @@ template <typename T> ostream &operator<<(ostream &stream, const deq<T> &v) {
   }
   return stream;
 }
+
+template <typename T> inline T pop(vector<T> &stack) {
+  T top = stack.back();
+  stack.pop_back();
+  return top;
+}
+
+template <typename T> inline T popb(deq<T> &que) {
+  T top = que.back();
+  que.pop_back();
+  return top;
+}
+
+template <typename T> inline T popf(deq<T> &que) {
+  T top = que.front();
+  que.pop_front();
+  return top;
+}
+
+template <typename T>
+struct number_iterator : std::iterator<random_access_iterator_tag, T> {
+  T v;
+  number_iterator(T _v) : v(_v) {}
+  operator T &() { return v; }
+  T operator*() const { return v; }
+};
+template <typename T> struct number_range {
+  T b, e;
+  number_range(T b, T e) : b(b), e(e) {}
+  number_iterator<T> begin() { return b; }
+  number_iterator<T> end() { return e; }
+};
+
+template <typename T> number_range<T> range(T e) {
+  return number_range<T>(0, e);
+}
+
+template <typename T> number_range<T> range(T b, T e) {
+  return number_range<T>(b, e);
+}
 #endif
 
-map<i64, vi64> combs;
-vi64 v;
+bool checker(vi64 chk, vi64 against) {
+  bool res = true;
+  for (auto x : against) {
+    if (!chk[x]) {
+      res = false;
+    }
+  }
 
-void solve(i64 pos) { return; }
+  return res;
+}
 
 int main() {
   ios_base::sync_with_stdio(false);
@@ -181,23 +228,37 @@ int main() {
 
   i64 n;
   cin >> n;
-  v.assign(n, 0);
+  vi64 v(n);
   for (auto &x : v) {
     cin >> x;
   }
 
-  i64 k;
-  cin >> k;
-  for (i64 i = 0; i < k; i++) {
-    i64 temp0, temp1;
-    cin >> temp0 >> temp1;
-    combs[temp0 - 1].assign(temp1, 0);
-    for (auto &x : combs[temp0 - 1]) {
-      cin >> x;
+  i64 nrec;
+  cin >> nrec;
+  map<i64, vi64> rcp;
+  for (auto i : range(nrec)) {
+    i64 crt, temp;
+    cin >> crt >> temp;
+    vi64 vtemp(temp);
+    for (auto &y : vtemp) {
+      cin >> y;
+      y--;
+    }
+
+    crt--;
+    rcp[crt] = vtemp;
+  }
+
+  for (auto kvp : rcp) {
+    while (checker(v, kvp.sd)) {
+      v[kvp.ft]++;
+      for (auto x : kvp.sd) {
+        v[x]--;
+      }
     }
   }
 
-  solve(n - 1);
+  cout << v[n - 1] << endl;
 
   return 0;
 }

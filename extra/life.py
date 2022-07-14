@@ -1,4 +1,4 @@
-import pygame, random
+import pygame, random, time
 
 
 def check():
@@ -118,31 +118,37 @@ def initialize():
     draw()
 
 
-running = True
-constant = False
-initialize()
-global inert
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RETURN:
-                constant = not constant
-            if constant:
-                inert = check()
-                draw()
-                continue
-            if event.key == pygame.K_ESCAPE:
-                running = False
-            elif event.key == pygame.K_SPACE:
-                inert = check()
-                draw()
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            x, y = pygame.mouse.get_pos()
-            if event.button == 1:
-                addrm(y, x, True)
-            elif event.button == 3:
-                addrm(y, x, False)
+def main():
+    global inert
+    initialize()
 
-        draw()
+    running = False
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                return
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    running = not running
+                elif event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    return
+                elif event.key == pygame.K_SPACE:
+                    inert = check()
+                    draw()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = pygame.mouse.get_pos()
+                if event.button == 1:
+                    addrm(y, x, True)
+                elif event.button == 3:
+                    addrm(y, x, False)
+
+            if running:
+                inert = check()
+                draw()
+
+            draw()
+
+
+main()

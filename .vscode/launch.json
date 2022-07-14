@@ -5,23 +5,15 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Python: Current File",
+      "name": "Python",
       "type": "python",
       "request": "launch",
       "program": "${file}",
       "console": "integratedTerminal",
       "justMyCode": true
     },
-
     {
-      "type": "java",
-      "name": "Launch Main",
-      "request": "launch",
-      "mainClass": "other.meme010.Main",
-      "projectName": "VSCode_77590fd3"
-    },
-    {
-      "name": "g++ - Debug active file",
+      "name": "C++ GCC",
       "type": "cppdbg",
       "request": "launch",
       "program": "${fileDirname}/${fileBasenameNoExtension}",

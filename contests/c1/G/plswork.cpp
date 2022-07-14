@@ -40,7 +40,6 @@ using namespace __gnu_pbds;
 #ifdef LOCAL
 // #define git stauDBG_MACRO_NO_WARNING
 // #include <dbg.h>
-using i128 = __int128_t;
 #else
 #define dbg(...)
 #endif
@@ -59,6 +58,7 @@ using byte = int8_t;
 using i3 = int32_t;
 using i6 = int64_t;
 using i64 = int64_t;
+using i128 = __int128_t;
 using u3 = uint32_t;
 using u6 = uint64_t;
 using u64 = uint64_t;
@@ -215,16 +215,19 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  i64 n;
-  cin >> n;
-  for (auto x : range(n)) {
-    str s;
-    cin >> s;
-    if (s == "yes" || s == "Yes" || s == "YEs" || s == "YES" || s == "yEs" ||
-        s == "yeS" || s == "yES") {
-      cout << "YES" << endl;
-    } else {
-      cout << "NO" << endl;
+  i64 tc;
+  cin >> tc;
+  while (tc--) {
+    i64 n, k;
+    cin >> n >> k;
+    vi64 v(n), s(n);
+    for (auto &x : v) {
+      cin >> x;
+    }
+
+    s[n - 1] = v[n - 1] / 2 * 2;
+    for (i64 i = n - 2; i >= 0; i--) {
+      s[i] = s[i + 1] + v[i] / 2 * 2;
     }
   }
 
