@@ -206,51 +206,6 @@ template <typename T> number_range<T> range(T b, T e) {
 }
 #endif
 
-hmap<i64, vi64> rcp;
-vi64 v;
-vb deadends;
-
-vi64 checker(vi64 chk, vi64 against) {
-  vi64 res;
-  for (auto x : against) {
-    if (!chk[x]) {
-      res.psb(x);
-    }
-  }
-
-  return res;
-}
-
-bool mxbool(bool a, bool b) {
-  if (a || b) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-bool solve(i64 pos) {
-  if (deadends[pos]) {
-    return false;
-  }
-
-  vi64 eep = checker(v, rcp[pos]);
-  bool res = false;
-  if (eep.empty()) {
-    res = true;
-    v[pos]++;
-    for (auto x : rcp[pos]) {
-      v[x]--;
-    }
-  }
-
-  for (auto x : eep) {
-    res = mxbool(solve(x), res);
-  }
-
-  return res;
-}
-
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(0);
@@ -260,46 +215,42 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  i64 n;
-  cin >> n;
-  v.resize(n);
-  for (auto &x : v) {
-    cin >> x;
+  short a[3][3], b[3][3];
+  vi64 frqa(26, 0), frqb(26, 0);
+
+  for (i64 i = 0; i < 3; i++) {
+    for (i64 j = 0; j < 3; j++) {
+      char x;
+      cin >> x;
+      a[i][j] = x - 'A';
+      frqa[a[i][j]]++;
+    }
+  }
+  for (i64 i = 0; i < 3; i++) {
+    for (i64 j = 0; j < 3; j++) {
+      char x;
+      cin >> x;
+      b[i][j] = x - 'A';
+      frqb[b[i][j]]++;
+    }
   }
 
-  i64 nrec;
-  cin >> nrec;
-  deadends.resize(n, true);
-  for (auto i : range(nrec)) {
-    i64 crt, temp;
-    cin >> crt >> temp;
-    vi64 vtemp(temp);
-    for (auto &y : vtemp) {
-      cin >> y;
-      y--;
-    }
-
-    crt--;
-    rcp[crt] = vtemp;
-    deadends[crt] = false;
-  }
-
-  if (rcp.size() == n - 1) {
-    i64 sm = 0;
-    for (auto x : v) {
-      sm += x;
-    }
-    cout << sm << endl;
-    return 0;
-  } else {
-    while (true) {
-      if (!solve(n - 1)) {
-        break;
+  i64 green = 0, yellow = 0;
+  for (i64 i = 0; i < 3; i++) {
+    for (i64 j = 0; j < 3; j++) {
+      if (a[i][j] == b[i][j]) {
+        green += 1;
+        frqa[a[i][j]]--;
+        frqb[b[i][j]]--;
       }
     }
   }
 
-  cout << v[n - 1] << endl;
+  for (auto i : range(26)) {
+    yellow += min(frqa[i], frqb[i]);
+  }
+
+  cout << green << endl << yellow << endl;
 
   return 0;
 }

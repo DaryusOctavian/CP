@@ -206,49 +206,40 @@ template <typename T> number_range<T> range(T b, T e) {
 }
 #endif
 
-hmap<i64, vi64> rcp;
-vi64 v;
-vb deadends;
-
-vi64 checker(vi64 chk, vi64 against) {
-  vi64 res;
-  for (auto x : against) {
-    if (!chk[x]) {
-      res.psb(x);
+bool beats(vi64 &a, vi64 &b) {
+  i64 wn = 0, ls = 0;
+  for (auto i : range(4)) {
+    for (auto j : range(4)) {
+      if (a[i] > b[j]) {
+        wn++;
+      }
+      if (b[j] > a[i]) {
+        ls++;
+      }
     }
   }
 
-  return res;
+  return wn > ls;
 }
 
-bool mxbool(bool a, bool b) {
-  if (a || b) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-bool solve(i64 pos) {
-  if (deadends[pos]) {
-    return false;
-  }
-
-  vi64 eep = checker(v, rcp[pos]);
-  bool res = false;
-  if (eep.empty()) {
-    res = true;
-    v[pos]++;
-    for (auto x : rcp[pos]) {
-      v[x]--;
+bool checker(vi64 &v1, vi64 &v2) {
+  for (i64 a = 1; a <= 10; a++) {
+    for (i64 b = 1; b <= 10; b++) {
+      for (i64 c = 1; c <= 10; c++) {
+        for (i64 d = 1; d <= 10; d++) {
+          vi64 v3 = {a, b, c, d};
+          if (beats(v1, v2) && beats(v2, v3) && beats(v3, v1)) {
+            return true;
+          }
+          if (beats(v2, v1) && beats(v3, v2) && beats(v1, v3)) {
+            return true;
+          }
+        }
+      }
     }
   }
 
-  for (auto x : eep) {
-    res = mxbool(solve(x), res);
-  }
-
-  return res;
+  return false;
 }
 
 int main() {
@@ -260,46 +251,22 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  i64 n;
-  cin >> n;
-  v.resize(n);
-  for (auto &x : v) {
-    cin >> x;
-  }
-
-  i64 nrec;
-  cin >> nrec;
-  deadends.resize(n, true);
-  for (auto i : range(nrec)) {
-    i64 crt, temp;
-    cin >> crt >> temp;
-    vi64 vtemp(temp);
-    for (auto &y : vtemp) {
-      cin >> y;
-      y--;
+  i64 tc;
+  cin >> tc;
+  while (tc--) {
+    vi64 a(4), b(4);
+    for (auto &x : a) {
+      cin >> x;
     }
-
-    crt--;
-    rcp[crt] = vtemp;
-    deadends[crt] = false;
-  }
-
-  if (rcp.size() == n - 1) {
-    i64 sm = 0;
-    for (auto x : v) {
-      sm += x;
+    for (auto &x : b) {
+      cin >> x;
     }
-    cout << sm << endl;
-    return 0;
-  } else {
-    while (true) {
-      if (!solve(n - 1)) {
-        break;
-      }
+    if (checker(a, b)) {
+      cout << "yes" << endl;
+    } else {
+      cout << "no" << endl;
     }
   }
-
-  cout << v[n - 1] << endl;
 
   return 0;
 }

@@ -206,51 +206,6 @@ template <typename T> number_range<T> range(T b, T e) {
 }
 #endif
 
-hmap<i64, vi64> rcp;
-vi64 v;
-vb deadends;
-
-vi64 checker(vi64 chk, vi64 against) {
-  vi64 res;
-  for (auto x : against) {
-    if (!chk[x]) {
-      res.psb(x);
-    }
-  }
-
-  return res;
-}
-
-bool mxbool(bool a, bool b) {
-  if (a || b) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-bool solve(i64 pos) {
-  if (deadends[pos]) {
-    return false;
-  }
-
-  vi64 eep = checker(v, rcp[pos]);
-  bool res = false;
-  if (eep.empty()) {
-    res = true;
-    v[pos]++;
-    for (auto x : rcp[pos]) {
-      v[x]--;
-    }
-  }
-
-  for (auto x : eep) {
-    res = mxbool(solve(x), res);
-  }
-
-  return res;
-}
-
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(0);
@@ -260,46 +215,38 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  i64 n;
-  cin >> n;
-  v.resize(n);
-  for (auto &x : v) {
-    cin >> x;
-  }
-
-  i64 nrec;
-  cin >> nrec;
-  deadends.resize(n, true);
-  for (auto i : range(nrec)) {
-    i64 crt, temp;
-    cin >> crt >> temp;
-    vi64 vtemp(temp);
-    for (auto &y : vtemp) {
-      cin >> y;
-      y--;
+  i64 tc;
+  cin >> tc;
+  while (tc--) {
+    i64 n, sum = 0;
+    cin >> n;
+    vi64 v(n);
+    for (auto &x : v) {
+      cin >> x;
+      sum += x;
     }
 
-    crt--;
-    rcp[crt] = vtemp;
-    deadends[crt] = false;
-  }
-
-  if (rcp.size() == n - 1) {
-    i64 sm = 0;
-    for (auto x : v) {
-      sm += x;
-    }
-    cout << sm << endl;
-    return 0;
-  } else {
-    while (true) {
-      if (!solve(n - 1)) {
-        break;
+    for (i64 eep = n; eep > 0; eep--) {
+      if (sum % eep == 0) {
+        i64 crt = 0;
+        bool ok = true;
+        for (i64 i = 0; i < n; i++) {
+          crt += v[i];
+          if (crt > (sum / eep)) {
+            ok = false;
+            break;
+          }
+          if (crt == (sum / eep)) {
+            crt = 0;
+          }
+        }
+        if (ok) {
+          cout << n - eep << endl;
+          break;
+        }
       }
     }
   }
-
-  cout << v[n - 1] << endl;
 
   return 0;
 }
