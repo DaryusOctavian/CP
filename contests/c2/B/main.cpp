@@ -206,46 +206,6 @@ template <typename T> number_range<T> range(T b, T e) {
 }
 #endif
 
-vi64 dirx = {-1, -1, -1, 0, 0, 1, 1, 1};
-vi64 diry = {-1, 0, 1, -1, 1, -1, 0, 1};
-i64 n, r, c;
-
-i64 bfs(i64 x, i64 y, vec<vec<char>> &m, vec<vec<bool>> &mvis) {
-  deq<p64> q;
-  i64 res = 0;
-
-  mvis[x][y] = true;
-  q.push_back({x, y});
-  res++;
-
-  while (!q.empty()) {
-    auto p = q.front();
-    q.pop_front();
-
-    for (auto k : range(8)) {
-      if (p.ft % 2) {
-        if (k == 0 || k == 5) {
-          continue;
-        }
-      } else {
-        if (k == 2 || k == 7) {
-          continue;
-        }
-      }
-
-      i64 i = p.ft + dirx[k];
-      i64 j = p.sd + diry[k];
-      if (i >= 0 && j >= 0 && i < r && j < c && m[i][j] == '.' && !mvis[i][j]) {
-        q.push_back({i, j});
-        mvis[i][j] = true;
-        res++;
-      }
-    }
-  }
-
-  return res;
-}
-
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(0);
@@ -255,40 +215,47 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  cin >> n >> r >> c;
+  i64 tc;
+  cin >> tc;
+  umap<i64, short> diff;
+  while (tc--) {
+    diff.clear();
+    i64 n;
+    cin >> n;
 
-  vec<vec<char>> m(r, vec<char>(c));
-  vec<vec<bool>> vism(r, vec<bool>(c));
-  for (i64 i : range(r)) {
-    for (i64 j : range(c)) {
-      cin >> m[i][j];
+    vb v(n);
+    i64 ntrue = 0;
+    for (i64 i : range(n)) {
+      i64 x;
+      cin >> x;
+      if (diff.count(x) != 0) {
+        v[i] = true;
+        ntrue++;
+      } else {
+        v[i] = false;
+        diff[x] = 1;
+      }
     }
-  }
 
-  vi64 temp;
-  for (i64 i : range(r)) {
-    for (i64 j : range(c)) {
-      if (m[i][j] == '.' && !vism[i][j]) {
-        temp.psb(bfs(i, j, m, vism));
+    i64 res1 = ntrue, res2 = ntrue;
+    if (ntrue == 0) {
+      cout << 0 << endl;
+      continue;
+    }
+    for (i64 i : range(n)) {
+      if (v[i]) {
+        res1--;
+      }
+      if (v[n - i - 1]) {
+        res2--;
+      }
+
+      if (res1 == 0 || res2 == 0) {
+        cout << i + 1 << endl;
+        break;
       }
     }
   }
-
-  sort(col(temp), greater<i64>());
-
-  i64 res = 0;
-  if (n == 0) {
-    cout << 0 << endl;
-    return 0;
-  }
-  for (auto x : temp) {
-    n -= x;
-    res++;
-    if (n <= 0) {
-      break;
-    }
-  }
-  cout << res << endl;
 
   return 0;
 }

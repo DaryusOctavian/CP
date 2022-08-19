@@ -239,10 +239,10 @@ int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(0);
   cout.tie(0);
-  // #ifdef LOCAL
-  //   ifstream cin{"input.txt"};
-  //   ofstream cout{"output.txt"};
-  // #endif
+#ifdef LOCAL
+  ifstream cin{"input.txt"};
+  ofstream cout{"output.txt"};
+#endif
 
   cin >> n >> m;
   vec<vec<char>> v(n, vec<char>(m));

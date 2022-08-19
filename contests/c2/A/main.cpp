@@ -206,44 +206,19 @@ template <typename T> number_range<T> range(T b, T e) {
 }
 #endif
 
-vi64 dirx = {-1, -1, -1, 0, 0, 1, 1, 1};
-vi64 diry = {-1, 0, 1, -1, 1, -1, 0, 1};
-i64 n, r, c;
+i64 hmp(i64 h0, i64 m0, i64 h, i64 m) {
+  i64 tmp0 = h0 * 60 + m0;
+  i64 tmpv = h * 60 + m;
 
-i64 bfs(i64 x, i64 y, vec<vec<char>> &m, vec<vec<bool>> &mvis) {
-  deq<p64> q;
-  i64 res = 0;
-
-  mvis[x][y] = true;
-  q.push_back({x, y});
-  res++;
-
-  while (!q.empty()) {
-    auto p = q.front();
-    q.pop_front();
-
-    for (auto k : range(8)) {
-      if (p.ft % 2) {
-        if (k == 0 || k == 5) {
-          continue;
-        }
-      } else {
-        if (k == 2 || k == 7) {
-          continue;
-        }
-      }
-
-      i64 i = p.ft + dirx[k];
-      i64 j = p.sd + diry[k];
-      if (i >= 0 && j >= 0 && i < r && j < c && m[i][j] == '.' && !mvis[i][j]) {
-        q.push_back({i, j});
-        mvis[i][j] = true;
-        res++;
-      }
-    }
+  if (tmp0 == tmpv) {
+    return 0;
+  } else if (tmp0 < tmpv) {
+    i64 crt = tmpv - tmp0;
+    return crt;
+  } else {
+    i64 crt = (1440 - tmp0) + tmpv;
+    return crt;
   }
-
-  return res;
 }
 
 int main() {
@@ -255,40 +230,21 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  cin >> n >> r >> c;
+  i64 tc;
+  cin >> tc;
+  while (tc--) {
+    i64 n, h0, m0;
+    cin >> n >> h0 >> m0;
 
-  vec<vec<char>> m(r, vec<char>(c));
-  vec<vec<bool>> vism(r, vec<bool>(c));
-  for (i64 i : range(r)) {
-    for (i64 j : range(c)) {
-      cin >> m[i][j];
+    i64 res = 1e9;
+    for (i64 k : range(n)) {
+      i64 h, m;
+      cin >> h >> m;
+      res = min(res, hmp(h0, m0, h, m));
     }
-  }
 
-  vi64 temp;
-  for (i64 i : range(r)) {
-    for (i64 j : range(c)) {
-      if (m[i][j] == '.' && !vism[i][j]) {
-        temp.psb(bfs(i, j, m, vism));
-      }
-    }
+    cout << res / 60 << " " << res % 60 << "\n";
   }
-
-  sort(col(temp), greater<i64>());
-
-  i64 res = 0;
-  if (n == 0) {
-    cout << 0 << endl;
-    return 0;
-  }
-  for (auto x : temp) {
-    n -= x;
-    res++;
-    if (n <= 0) {
-      break;
-    }
-  }
-  cout << res << endl;
 
   return 0;
 }

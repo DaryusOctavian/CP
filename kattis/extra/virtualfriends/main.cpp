@@ -206,44 +206,34 @@ template <typename T> number_range<T> range(T b, T e) {
 }
 #endif
 
-vi64 dirx = {-1, -1, -1, 0, 0, 1, 1, 1};
-vi64 diry = {-1, 0, 1, -1, 1, -1, 0, 1};
-i64 n, r, c;
+vi64 ujs, ranks;
 
-i64 bfs(i64 x, i64 y, vec<vec<char>> &m, vec<vec<bool>> &mvis) {
-  deq<p64> q;
-  i64 res = 0;
-
-  mvis[x][y] = true;
-  q.push_back({x, y});
-  res++;
-
-  while (!q.empty()) {
-    auto p = q.front();
-    q.pop_front();
-
-    for (auto k : range(8)) {
-      if (p.ft % 2) {
-        if (k == 0 || k == 5) {
-          continue;
-        }
-      } else {
-        if (k == 2 || k == 7) {
-          continue;
-        }
-      }
-
-      i64 i = p.ft + dirx[k];
-      i64 j = p.sd + diry[k];
-      if (i >= 0 && j >= 0 && i < r && j < c && m[i][j] == '.' && !mvis[i][j]) {
-        q.push_back({i, j});
-        mvis[i][j] = true;
-        res++;
-      }
-    }
+i64 findparent(i64 x) {
+  i64 cp = x;
+  while (x != ujs[x]) {
+    x = ujs[x];
   }
 
-  return res;
+  ujs[cp] = x;
+
+  return x;
+}
+
+i64 join(i64 a, i64 b) {
+  i64 pa = findparent(a);
+  i64 pb = findparent(b);
+
+  if (pa == pb) {
+    return pa;
+  } else if (ranks[pa] >= ranks[pb]) {
+    ujs[pb] = pa;
+    ranks[pa] += ranks[pb];
+    return pa;
+  } else {
+    ujs[pa] = pb;
+    ranks[pb] += ranks[pa];
+    return pb;
+  }
 }
 
 int main() {
@@ -255,40 +245,38 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  cin >> n >> r >> c;
-
-  vec<vec<char>> m(r, vec<char>(c));
-  vec<vec<bool>> vism(r, vec<bool>(c));
-  for (i64 i : range(r)) {
-    for (i64 j : range(c)) {
-      cin >> m[i][j];
+  i64 tc;
+  cin >> tc;
+  umap<string, i64> mp;
+  while (tc--) {
+    ujs.clear();
+    ranks.clear();
+    mp.clear();
+    i64 n;
+    cin >> n;
+    ujs.reserve(2 * n);
+    ranks.reserve(2 * n);
+    for (i64 i : range(2 * n)) {
+      ujs.push_back(i);
+      ranks.push_back(1);
     }
-  }
-
-  vi64 temp;
-  for (i64 i : range(r)) {
-    for (i64 j : range(c)) {
-      if (m[i][j] == '.' && !vism[i][j]) {
-        temp.psb(bfs(i, j, m, vism));
+    i64 cnt = 0;
+    while (n--) {
+      str a, b;
+      cin >> a >> b;
+      if (mp.count(a) == 0) {
+        mp[a] = cnt;
+        cnt++;
       }
+      if (mp.count(b) == 0) {
+        mp[b] = cnt;
+        cnt++;
+      }
+
+      i64 crt = join(mp[a], mp[b]);
+      cout << ranks[crt] << endl;
     }
   }
-
-  sort(col(temp), greater<i64>());
-
-  i64 res = 0;
-  if (n == 0) {
-    cout << 0 << endl;
-    return 0;
-  }
-  for (auto x : temp) {
-    n -= x;
-    res++;
-    if (n <= 0) {
-      break;
-    }
-  }
-  cout << res << endl;
 
   return 0;
 }
