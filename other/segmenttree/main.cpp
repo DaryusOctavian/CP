@@ -206,44 +206,39 @@ template <typename T> number_range<T> range(T b, T e) {
 }
 #endif
 
-i64 parent(i64 x, vi64 &ujs) {
-  i64 temp = x;
-  while (x != ujs[x]) {
-    x = ujs[x];
+i64 closestp(i64 n) {
+  i64 res = 1;
+  while (res < n) {
+    res *= 2;
   }
 
-  ujs[temp] = x;
-
-  return x;
+  return res;
 }
 
-void join(i64 x, i64 y, vi64 &ujs, vp64 &ranks) {
-  x = parent(x, ujs);
-  y = parent(y, ujs);
-
-  if (x != y) {
-    if (ranks[x] > ranks[y]) {
-      ujs[y] = x;
-      ranks[x].ft += ranks[y].ft;
-      ranks[x].sd += ranks[y].sd;
-
-    } else {
-      ujs[x] = y;
-      ranks[y].ft += ranks[x].ft;
-      ranks[y].sd += ranks[x].sd;
-    }
+void update(i64 pos, i64 val, vi64 &st) {
+  i64 crt = st.size() / 2 + pos;
+  st[crt] = val;
+  crt /= 2;
+  while (crt > 0) {
+    st[crt] = max(st[2 * crt], st[2 * crt + 1]);
+    crt /= 2;
   }
 }
 
-void add(i64 x, i64 target, vi64 &ujs, vp64 &ranks) {
-  x = parent(x, ujs);
-  target = parent(target, ujs);
+i64 query(i64 pos, i64 l, i64 r, i64 ql, i64 qr, vi64 &st) {
+  if (l == ql && r == qr) {
+    return st[pos];
+  }
 
-  ujs[x] = target;
-  ranks[target].ft += 1;
-  ranks[target].sd += (x + 1);
-  ranks[x].ft -= 1;
-  ranks[x].sd -= (x + 1);
+  i64 mid = r + (l - r) / 2, res = 0;
+  if (ql <= mid) {
+    res = max(res, query(2 * pos, l, mid, ql, min(qr, mid), st));
+  }
+  if (qr > mid) {
+    res = max(res, query(2 * pos + 1, mid + 1, r, max(ql, mid + 1), qr, st));
+  }
+
+  return res;
 }
 
 int main() {
@@ -255,34 +250,19 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  i64 n, tc;
-  cin >> n >> tc;
-  vi64 ujs(n);
-  vp64 ranks(n, {1, 0});
-  for (i64 i : range(n)) {
-    ujs[i] = i;
-    ranks[i].sd = i + 1;
-  }
+  i64 inp;
+  cin >> inp;
+  i64 n = closestp(inp);
+  cout << n << endl;
+  vi64 st(2 * n, 0);
 
-  while (tc--) {
-    i64 cmd, a, b;
-    cin >> cmd;
-    if (cmd != 3) {
-      cin >> a >> b;
-      a--;
-      b--;
-    } else {
-      cin >> a;
-      a--;
-      // a = parent(a, ujs);
+  i64 qr, a, b;
+  while (cin >> qr >> a >> b) {
+    if (qr == 1) {
+      update(a, b, st);
     }
-    if (cmd == 1) {
-      join(a, b, ujs, ranks);
-    } else if (cmd == 2) {
-      add(a, b, ujs, ranks);
-    } else {
-      a = parent(a, ujs);
-      cout << ranks[a].ft << " " << ranks[a].sd << endl;
+    if (qr == 2) {
+      cout << query(1, 0, inp - 1, a, b, st) << endl;
     }
   }
 
