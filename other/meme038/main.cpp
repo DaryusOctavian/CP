@@ -215,9 +215,9 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-    i64 a;
-    cin >> a;
-    cout << a << endl;
+  i64 a;
+  cin >> a;
+  cout << a << endl;
 
   return 0;
 }
