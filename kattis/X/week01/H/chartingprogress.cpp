@@ -206,20 +206,6 @@ template <typename T> number_range<T> range(T b, T e) {
 }
 #endif
 
-d64 dist(pair<d64, d64> x, pair<d64, d64> y) {
-  return sqrt(pow(x.ft - y.ft, 2) + pow(x.sd - y.sd, 2));
-}
-
-d64 ssum(pair<d64, d64> a, pair<d64, d64> b, pair<d64, d64> c,
-         pair<d64, d64> det) {
-  d64 res = 0;
-  res += dist(a, det);
-  res += dist(b, det);
-  res += dist(c, det);
-
-  return res;
-}
-
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(0);
@@ -229,38 +215,45 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  pair<d64, d64> a, b, c;
-  cin >> a.ft >> a.sd >> b.ft >> b.sd >> c.ft >> c.sd;
-  d64 x = (a.ft + b.ft + c.ft) / 3.0;
-  d64 y = (a.sd + b.sd + c.sd) / 3.0;
-  vi64 dirx = {1, -1, 0, 0};
-  vi64 diry = {0, 0, 1, -1};
-  d64 det = 1e3, res = ssum(a, b, c, {x, y});
-  while (det > 1e-6) {
-    bool found = false;
-    for (i64 i : range(4)) {
-      d64 xx = x + det * dirx[i];
-      d64 yy = y + det * diry[i];
-      d64 crt = ssum(a, b, c, {xx, yy});
-      if (crt < res) {
-        res = crt;
-        x = xx;
-        y = yy;
-        found = true;
+  i64 i = 0, j = 0;
+  vi64 v;
+  while (!cin.eof()) {
+    str s;
+    getline(cin, s);
+    if (s == "") {
+      i64 pos = 0;
+      for (i64 k : range(i)) {
+        for (i64 l : range(j)) {
+          if (v[k] + pos >= j - l && j - l > pos) {
+            cout << "*";
+          } else {
+            cout << ".";
+          }
+        }
+        pos += v[k];
+        cout << endl;
       }
-    }
-    if (!found) {
-      det /= 2;
+      cout << endl;
+
+      i = 0;
+      j = 0;
+      v.clear();
+    } else {
+      i++;
+      j = s.size();
+      i64 crt = 0;
+      for (auto x : s) {
+        if (x == '*') {
+          crt++;
+        }
+      }
+      v.psb(crt);
     }
   }
-
-  cout << fixed << setprecision(5) << x << " " << y << endl;
 
   return 0;
 }
 
 /*
-0++
-+++
-0+0
+
 */
