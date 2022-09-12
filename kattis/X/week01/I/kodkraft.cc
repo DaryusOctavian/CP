@@ -215,54 +215,44 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  i64 c;
-  cin >> c;
-  str a, b;
-  cin >> a >> b;
-  if (c == 1) {
-    i64 res = 0, pos = 0;
-    for (auto x : a) {
-      res += min(abs(pos - (char(x) - 'A')), 26 - abs(pos - (char(x) - 'A')));
-      pos = char(x) - 'A';
-    }
-
-    cout << res << endl;
-  } else {
-    vi64 eep;
-    vec<char> res;
-    eep.reserve(5e4);
-    for (i64 i : range(a.length() - 1)) {
-      res.psb(a[i]);
-      i64 crt = 0;
-      for (i64 it : range(b.length())) {
-        if (a[i] < b[it] && b[it] < a[i + 1]) {
-          crt++;
-          if (res.size() < 2 * (i + 1)) {
-            res.psb(b[it]);
-          }
-        }
-      }
-      eep.psb(crt == 0 ? 1 : crt);
-    }
-
-    i64 t = 0, pos = 0;
-    for (auto x : res) {
-      t += min(abs(pos - (char(x) - 'A')), 26 - abs(pos - (char(x) - 'A')));
-      pos = char(x) - 'A';
-    }
-
-    cout << t << endl;
-    i64 crt = 1;
-    for (auto x : eep) {
-      crt *= x;
-      crt %= 6666013;
-    }
-    cout << crt << endl;
-    for (auto x : res) {
-      cout << x;
-    }
-    cout << endl;
+  i64 n, k;
+  cin >> n >> k;
+  vi64 v(n), rep(k + 1, 0);
+  for (auto &x : v) {
+    cin >> x;
+    rep[x]++;
   }
+
+  i64 pos1 = -1e18, pos2 = 1e18, res = 0;
+  vi64 vres;
+  set<i64> s;
+  vres.reserve(k);
+  for (i64 i : range(n)) {
+    if (v[i] == 1) {
+      pos1 = max(i, pos1);
+    }
+    if (v[i] == k) {
+      pos2 = min(i, pos2);
+    }
+
+    if (rep[v[i]] > 1) {
+      rep[v[i]]--;
+    } else {
+      if (s.find(v[i] - 1) == s.end() && s.find(v[i]) != s.end()) {
+        res++;
+      }
+    }
+    s.insert(v[i]);
+  }
+
+  // for (i64 x : vres) {
+  //   s.insert(x);
+  //   if (s.find(x - 1) == s.end()) {
+  //     res++;
+  //   }
+  // }
+
+  cout << res * n - pos1 - (n - pos2 - 1) << endl;
 
   return 0;
 }
