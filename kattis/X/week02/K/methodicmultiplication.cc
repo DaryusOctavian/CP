@@ -206,62 +206,46 @@ template <typename T> number_range<T> range(T b, T e) {
 }
 #endif
 
+void print(i64 x) {
+  if (x == 0) {
+    cout << 0;
+    return;
+  }
+  cout << "S(";
+  print(x - 1);
+  cout << ")";
+  return;
+}
+
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(0);
   cout.tie(0);
 #ifdef LOCAL
   ifstream cin{"input.txt"};
-  ofstream cout{"output.txt"};
 #endif
 
-  i64 c;
-  cin >> c;
-  str a, b;
-  cin >> a >> b;
-  if (c == 1) {
-    i64 res = 0, pos = 0;
-    for (auto x : a) {
-      res += min(abs(pos - (char(x) - 'A')), 26 - abs(pos - (char(x) - 'A')));
-      pos = char(x) - 'A';
+  str s;
+  i64 a = 0, b = 0;
+  getline(cin, s);
+  for (auto x : s) {
+    if (x == 'S') {
+      a++;
     }
+  }
+  getline(cin, s);
+  for (auto x : s) {
+    if (x == 'S') {
+      b++;
+    }
+  }
 
-    cout << res << endl;
-  } else {
-    vi64 eep;
-    vec<char> res;
-    eep.reserve(5e4);
-    for (i64 i : range(a.length() - 1)) {
-      res.psb(a[i]);
-      i64 crt = 0;
-      for (i64 it : range(b.length())) {
-        if (a[i] < b[it] && b[it] < a[i + 1]) {
-          crt++;
-          if (res.size() < 2 * (i + 1)) {
-            res.psb(b[it]);
-          }
-        }
-      }
-      eep.psb(crt == 0 ? 1 : crt);
-    }
-
-    i64 t = 0, pos = 0;
-    for (auto x : res) {
-      t += min(abs(pos - (char(x) - 'A')), 26 - abs(pos - (char(x) - 'A')));
-      pos = char(x) - 'A';
-    }
-
-    cout << t << endl;
-    i64 crt = 1;
-    for (auto x : eep) {
-      crt *= x;
-      crt %= 666013;
-    }
-    cout << crt << endl;
-    for (auto x : res) {
-      cout << x;
-    }
-    cout << endl;
+  for (i64 i : range(a * b)) {
+    cout << "S(";
+  }
+  cout << 0;
+  for (i64 i : range(a * b)) {
+    cout << ")";
   }
 
   return 0;

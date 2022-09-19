@@ -215,54 +215,76 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  i64 c;
-  cin >> c;
-  str a, b;
-  cin >> a >> b;
-  if (c == 1) {
-    i64 res = 0, pos = 0;
-    for (auto x : a) {
-      res += min(abs(pos - (char(x) - 'A')), 26 - abs(pos - (char(x) - 'A')));
-      pos = char(x) - 'A';
-    }
-
-    cout << res << endl;
-  } else {
-    vi64 eep;
-    vec<char> res;
-    eep.reserve(5e4);
-    for (i64 i : range(a.length() - 1)) {
-      res.psb(a[i]);
-      i64 crt = 0;
-      for (i64 it : range(b.length())) {
-        if (a[i] < b[it] && b[it] < a[i + 1]) {
-          crt++;
-          if (res.size() < 2 * (i + 1)) {
-            res.psb(b[it]);
-          }
-        }
-      }
-      eep.psb(crt == 0 ? 1 : crt);
-    }
-
-    i64 t = 0, pos = 0;
-    for (auto x : res) {
-      t += min(abs(pos - (char(x) - 'A')), 26 - abs(pos - (char(x) - 'A')));
-      pos = char(x) - 'A';
-    }
-
-    cout << t << endl;
-    i64 crt = 1;
-    for (auto x : eep) {
-      crt *= x;
-      crt %= 666013;
-    }
-    cout << crt << endl;
-    for (auto x : res) {
-      cout << x;
-    }
-    cout << endl;
+  i64 n, eep;
+  cin >> n >> eep;
+  vi64 v(eep);
+  for (auto &x : v) {
+    cin >> x;
   }
+
+  i64 i = 0;
+  vp64 errors;
+  while (i < v.size()) {
+    errors.push_back({i, i});
+    if (i + 1 < v.size() && v[i + 1] - 1 == v[i]) {
+      while (i + 1 < v.size() && v[i + 1] - 1 == v[i]) {
+        i++;
+      }
+      errors.back().sd = i;
+    }
+    i++;
+  }
+
+  cout << "Errors: ";
+  for (auto x : range(errors.size())) {
+    if (errors[x].ft == errors[x].sd) {
+      cout << v[errors[x].ft];
+    } else {
+      cout << v[errors[x].ft] << "-" << v[errors[x].sd];
+    }
+    if (x + 2 == errors.size()) {
+      cout << " and ";
+    } else if (x + 2 < errors.size()) {
+      cout << ", ";
+    }
+  }
+  cout << endl;
+
+  i64 it = 0;
+  i = 1;
+  vp64 noerrors;
+  while (i <= n) {
+    if (it >= eep) {
+      noerrors.push_back({i, n});
+      break;
+    } else if (i < v[it]) {
+      noerrors.push_back({i, i});
+      while (i + 1 < v[it]) {
+        i++;
+      }
+      noerrors.back().sd = i;
+      i = v[it] + 1;
+      continue;
+    } else {
+      i = v[it] + 1;
+    }
+    it++;
+  }
+
+  cout << "Correct: ";
+  for (auto x : range(noerrors.size())) {
+    if (noerrors[x].ft == noerrors[x].sd) {
+      cout << noerrors[x].ft;
+    } else {
+      cout << noerrors[x].ft << "-" << noerrors[x].sd;
+    }
+    if (x + 2 == noerrors.size()) {
+      cout << " and ";
+    } else if (x + 2 < noerrors.size()) {
+      cout << ", ";
+    }
+  }
+  cout << endl;
 
   return 0;
 }

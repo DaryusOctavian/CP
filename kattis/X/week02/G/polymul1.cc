@@ -215,51 +215,31 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  i64 c;
-  cin >> c;
-  str a, b;
-  cin >> a >> b;
-  if (c == 1) {
-    i64 res = 0, pos = 0;
-    for (auto x : a) {
-      res += min(abs(pos - (char(x) - 'A')), 26 - abs(pos - (char(x) - 'A')));
-      pos = char(x) - 'A';
+  i64 tc;
+  cin >> tc;
+  while (tc--) {
+    i64 n, m;
+    cin >> n;
+    vi64 a(n + 1);
+    for (i64 &x : a) {
+      cin >> x;
+    }
+    cin >> m;
+    vi64 b(m + 1);
+    for (i64 &x : b) {
+      cin >> x;
     }
 
-    cout << res << endl;
-  } else {
-    vi64 eep;
-    vec<char> res;
-    eep.reserve(5e4);
-    for (i64 i : range(a.length() - 1)) {
-      res.psb(a[i]);
+    cout << n + m << endl;
+    for (i64 i = 0; i <= n + m; i++) {
       i64 crt = 0;
-      for (i64 it : range(b.length())) {
-        if (a[i] < b[it] && b[it] < a[i + 1]) {
-          crt++;
-          if (res.size() < 2 * (i + 1)) {
-            res.psb(b[it]);
-          }
+      for (i64 x = n; x >= 0; x--) {
+        if (!(i - x >= 0 && i - x <= m)) {
+          continue;
         }
+        crt += a[x] * b[i - x];
       }
-      eep.psb(crt == 0 ? 1 : crt);
-    }
-
-    i64 t = 0, pos = 0;
-    for (auto x : res) {
-      t += min(abs(pos - (char(x) - 'A')), 26 - abs(pos - (char(x) - 'A')));
-      pos = char(x) - 'A';
-    }
-
-    cout << t << endl;
-    i64 crt = 1;
-    for (auto x : eep) {
-      crt *= x;
-      crt %= 666013;
-    }
-    cout << crt << endl;
-    for (auto x : res) {
-      cout << x;
+      cout << crt << " ";
     }
     cout << endl;
   }
