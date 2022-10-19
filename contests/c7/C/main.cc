@@ -215,25 +215,39 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  str a, b, res;
-  cin >> a >> b;
-  i64 ind = 0;
-  for (i64 i = 0; i < a.length(); i++) {
-    char x = a[i] - 'A', y;
-    if (i < b.length()) {
-      y = (b[i] - 'A');
-    } else {
-      y = (res[ind++] - 'A');
+  i64 tc;
+  cin >> tc;
+  while (tc--) {
+    i64 n;
+    char c;
+    cin >> n >> c;
+    str s;
+    cin >> s;
+    vi64 gs;
+    for (i64 i = 0; i < n; i++) {
+      if (s[i] == 'g') {
+        gs.psb(i);
+      }
     }
 
-    if (x < y) {
-      x += 26;
+    if (gs.size() == 0) {
+      cout << 0 << endl;
+      continue;
     }
-    cout << char(((x - y) % 26) + 'A');
-    res.push_back(((x - y) % 26) + 'A');
+
+    i64 res = 0;
+    for (i64 i = 0; i < n; i++) {
+      if (s[i] == c) {
+        auto eep = lower_bound(gs.begin(), gs.end(), i);
+        if (eep == gs.end()) {
+          res = max(res, n - i + gs[0]);
+        } else {
+          res = max(res, *eep - i);
+        }
+      }
+    }
+    cout << res << endl;
   }
-
-  cout << endl;
 
   return 0;
 }

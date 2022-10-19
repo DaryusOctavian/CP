@@ -215,26 +215,6 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  str a, b, res;
-  cin >> a >> b;
-  i64 ind = 0;
-  for (i64 i = 0; i < a.length(); i++) {
-    char x = a[i] - 'A', y;
-    if (i < b.length()) {
-      y = (b[i] - 'A');
-    } else {
-      y = (res[ind++] - 'A');
-    }
-
-    if (x < y) {
-      x += 26;
-    }
-    cout << char(((x - y) % 26) + 'A');
-    res.push_back(((x - y) % 26) + 'A');
-  }
-
-  cout << endl;
-
   return 0;
 }
 

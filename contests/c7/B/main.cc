@@ -215,25 +215,60 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  str a, b, res;
-  cin >> a >> b;
-  i64 ind = 0;
-  for (i64 i = 0; i < a.length(); i++) {
-    char x = a[i] - 'A', y;
-    if (i < b.length()) {
-      y = (b[i] - 'A');
-    } else {
-      y = (res[ind++] - 'A');
+  i64 tc;
+  cin >> tc;
+  while (tc--) {
+    i64 n, q;
+    cin >> n >> q;
+    i64 s = 0;
+    i64 even = 0, odd = 0, emult = 0, omult = 0;
+    for (i64 i : range(n)) {
+      i64 crt;
+      cin >> crt;
+      s += crt;
+      if (crt % 2 == 0) {
+        even++;
+      } else {
+        odd++;
+      }
     }
 
-    if (x < y) {
-      x += 26;
+    bool estate = true;
+    bool ostate = true;
+
+    for (i64 i : range(q)) {
+      i64 crt, mult;
+      cin >> crt >> mult;
+      if (crt == 0) {
+        if (estate) {
+          emult += mult;
+          if (mult % 2 != 0) {
+            estate = false;
+          }
+        }
+        if (!ostate) {
+          omult += mult;
+          if (mult % 2 != 0) {
+            ostate = true;
+          }
+        }
+      } else {
+        if (ostate) {
+          omult += mult;
+          if (mult % 2 != 0) {
+            ostate = false;
+          }
+        }
+        if (!estate) {
+          emult += mult;
+          if (mult % 2 != 0) {
+            estate = true;
+          }
+        }
+      }
+      cout << s + (emult * even) + (omult * odd) << endl;
     }
-    cout << char(((x - y) % 26) + 'A');
-    res.push_back(((x - y) % 26) + 'A');
   }
-
-  cout << endl;
 
   return 0;
 }

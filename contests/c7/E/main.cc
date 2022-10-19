@@ -206,6 +206,14 @@ template <typename T> number_range<T> range(T b, T e) {
 }
 #endif
 
+i64 a, b, c, d;
+bool isokay(i64 x, i64 y) {
+  if (a <= x && x <= c && b <= y && y <= d) {
+    return true;
+  }
+  return false;
+}
+
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(0);
@@ -215,25 +223,57 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  str a, b, res;
-  cin >> a >> b;
-  i64 ind = 0;
-  for (i64 i = 0; i < a.length(); i++) {
-    char x = a[i] - 'A', y;
-    if (i < b.length()) {
-      y = (b[i] - 'A');
-    } else {
-      y = (res[ind++] - 'A');
+  i64 tc;
+  cin >> tc;
+  while (tc--) {
+    cin >> a >> b >> c >> d;
+
+    i64 res1 = -1, res2 = -1;
+    for (i64 i = 1; i * a * b < c * d; i++) {
+      map<i64, i64> m;
+      i64 n = a * b * i;
+      while (n % 2 == 0) {
+        m[2]++;
+        n /= 2;
+      }
+      for (i64 i = 3; i * i <= n; i += 2) {
+        while (n % i == 0) {
+          m[i]++;
+          n /= i;
+        }
+      }
+      if (n != 1) {
+        m[n]++;
+      }
+
+      i64 x = a * b * i, y = 1;
+
+      bool found = false;
+      for (auto e : m) {
+        bool ok = false;
+        for (i64 ii : range(e.sd)) {
+          x /= e.ft;
+          y *= e.ft;
+
+          if (a < x && b < y && isokay(x, y)) {
+            ok = true;
+            break;
+          }
+        }
+        if (ok) {
+          found = true;
+          break;
+        }
+      }
+
+      if (found) {
+        res1 = x, res2 = y;
+        break;
+      }
     }
 
-    if (x < y) {
-      x += 26;
-    }
-    cout << char(((x - y) % 26) + 'A');
-    res.push_back(((x - y) % 26) + 'A');
+    cout << res1 << " " << res2 << endl;
   }
-
-  cout << endl;
 
   return 0;
 }

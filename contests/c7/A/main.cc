@@ -215,25 +215,41 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  str a, b, res;
-  cin >> a >> b;
-  i64 ind = 0;
-  for (i64 i = 0; i < a.length(); i++) {
-    char x = a[i] - 'A', y;
-    if (i < b.length()) {
-      y = (b[i] - 'A');
+  i64 tc;
+  cin >> tc;
+  while (tc--) {
+    i64 n;
+    cin >> n;
+    vi64 v(n);
+    str s;
+    for (auto &e : v) {
+      cin >> e;
+    }
+    cin >> s;
+
+    bool ok = true;
+    map<i64, char> m;
+    for (i64 i = 0; i < n; i++) {
+      i64 x = v[i];
+      char y = s[i];
+      if (m.find(x) == m.end()) {
+        m[x] = y;
+      } else {
+        if (m[x] == y) {
+          continue;
+        } else {
+          ok = false;
+          break;
+        }
+      }
+    }
+
+    if (ok) {
+      cout << "YES" << endl;
     } else {
-      y = (res[ind++] - 'A');
+      cout << "NO" << endl;
     }
-
-    if (x < y) {
-      x += 26;
-    }
-    cout << char(((x - y) % 26) + 'A');
-    res.push_back(((x - y) % 26) + 'A');
   }
-
-  cout << endl;
 
   return 0;
 }
