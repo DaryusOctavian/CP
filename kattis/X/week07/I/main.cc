@@ -206,6 +206,15 @@ template <typename T> number_range<T> range(T b, T e) {
 }
 #endif
 
+i64 smlsqr(i64 x) {
+  i64 res = sqrt(x);
+  if (res * res == x) {
+    return res;
+  } else {
+    return res + 1;
+  }
+}
+
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(0);
@@ -217,32 +226,37 @@ int main() {
 
   i64 tc;
   cin >> tc;
-  cin.get();
   while (tc--) {
     str s;
-    getline(cin, s);
-    for (i64 i = 1; i <= s.length(); i++) {
-      i64 it = 0;
-      bool ok = true;
-      while (it < s.length()) {
-        if (s[it] != s[it % i]) {
-          ok = false;
-          break;
+    cin >> s;
+    i64 n = smlsqr(s.length());
+    vec<vec<char>> v(n, vec<char>(n));
+
+    i64 it = 0;
+
+    for (i64 j = n - 1; j >= 0; j--) {
+      for (i64 i = 0; i < n; i++) {
+        if (it >= s.length()) {
+          v[i][j] = '*';
+        } else {
+          v[i][j] = s[it++];
         }
-
-        it++;
-      }
-
-      if (ok) {
-        cout << i << endl;
-        break;
       }
     }
+
+    for (i64 i = 0; i < n; i++) {
+      for (i64 j = 0; j < n; j++) {
+        if (v[i][j] != '*') {
+          cout << v[i][j];
+        }
+      }
+    }
+    cout << endl;
   }
 
   return 0;
 }
 
 /*
-abbcabbcabb
+
 */

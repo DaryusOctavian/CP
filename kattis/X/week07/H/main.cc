@@ -217,32 +217,38 @@ int main() {
 
   i64 tc;
   cin >> tc;
-  cin.get();
+
+  map<i64, pair<str, i64>> mp;
   while (tc--) {
-    str s;
-    getline(cin, s);
-    for (i64 i = 1; i <= s.length(); i++) {
-      i64 it = 0;
-      bool ok = true;
-      while (it < s.length()) {
-        if (s[it] != s[it % i]) {
-          ok = false;
-          break;
-        }
+    str name;
+    char trash;
+    i64 rating, m, d;
+    cin >> name >> rating >> d >> trash >> m;
+    i64 crt = d * 1e3 + m;
 
-        it++;
+    if (mp.count(crt)) {
+      if (mp[crt].sd < rating) {
+        mp[crt] = {name, rating};
       }
-
-      if (ok) {
-        cout << i << endl;
-        break;
-      }
+    } else {
+      mp[crt] = {name, rating};
     }
+  }
+  cout << mp.size() << endl;
+  i64 i = 0;
+  vec<str> values(mp.size());
+  for (auto e : mp) {
+    values[i++] = e.sd.ft;
+  }
+
+  srt(values);
+  for (auto e : values) {
+    cout << e << endl;
   }
 
   return 0;
 }
 
 /*
-abbcabbcabb
+
 */

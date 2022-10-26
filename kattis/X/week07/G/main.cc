@@ -215,34 +215,43 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  i64 tc;
-  cin >> tc;
-  cin.get();
-  while (tc--) {
-    str s;
-    getline(cin, s);
-    for (i64 i = 1; i <= s.length(); i++) {
-      i64 it = 0;
-      bool ok = true;
-      while (it < s.length()) {
-        if (s[it] != s[it % i]) {
-          ok = false;
-          break;
+  while (true) {
+    i64 n;
+    cin >> n;
+    cin.get();
+    if (n == 0) {
+      break;
+    }
+    map<str, set<str>> m;
+    set<str> obj;
+    for (i64 tc : range(n)) {
+      str name, thing;
+      cin >> name;
+      getline(cin, thing);
+      stringstream ss(thing);
+      while (ss >> thing) {
+        m[name].insert(thing);
+        if (obj.find(thing) == obj.end()) {
+          obj.insert(thing);
         }
-
-        it++;
-      }
-
-      if (ok) {
-        cout << i << endl;
-        break;
       }
     }
+
+    for (auto e : obj) {
+      cout << e << " ";
+      for (auto kvp : m) {
+        if (kvp.sd.find(e) != kvp.sd.end()) {
+          cout << kvp.ft << " ";
+        }
+      }
+      cout << endl;
+    }
+    cout << endl;
   }
 
   return 0;
 }
 
 /*
-abbcabbcabb
+
 */

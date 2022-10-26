@@ -215,34 +215,31 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  i64 tc;
-  cin >> tc;
-  cin.get();
-  while (tc--) {
-    str s;
-    getline(cin, s);
-    for (i64 i = 1; i <= s.length(); i++) {
-      i64 it = 0;
-      bool ok = true;
-      while (it < s.length()) {
-        if (s[it] != s[it % i]) {
-          ok = false;
-          break;
-        }
+  str s;
+  cin >> s;
 
-        it++;
-      }
+  vec<i64> v(26, 0);
+  for (auto e : s) {
+    v[e - 'a']++;
+  }
 
-      if (ok) {
-        cout << i << endl;
-        break;
+  i64 res = 0;
+  bool thingie = false;
+  for (auto e : v) {
+    if (e % 2) {
+      if (!thingie) {
+        thingie = true;
+      } else {
+        res += e % 2;
       }
     }
   }
+
+  cout << res << endl;
 
   return 0;
 }
 
 /*
-abbcabbcabb
+
 */
