@@ -89,7 +89,6 @@ using si6 = set<i6>;
 using hi6 = hmap<i6, i6>;
 
 using bs = bitset<64>;
-using bitmask = u64;
 
 using graph = vv;
 using matrix = vv;
@@ -216,7 +215,11 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  bitmask b;
+  i64 n;
+  cin >> n;
+  for (i64 i : range(n)) {
+    cout << i + 1 << " Abracadabra\n";
+  }
 
   return 0;
 }

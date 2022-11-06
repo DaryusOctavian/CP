@@ -216,7 +216,43 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  bitmask b;
+  string s;
+  getline(cin, s);
+  i64 n;
+  cin >> n;
+  cin.get();
+
+  vector<map<string, i64>> m;
+  for (i64 i = 0; i < n; i++) {
+    getline(cin, s);
+    if (s.empty()) {
+      break;
+    }
+    stringstream ss(s);
+    for (i64 j = 0; !ss.eof(); j++) {
+      getline(ss, s, ',');
+      if (j == m.size()) {
+        m.push_back(map<string, i64>());
+      }
+      m[j][s]++;
+    }
+  }
+
+  for (i64 i = 0; i < m.size(); i++) {
+    string res = "";
+    i64 mx = 0;
+    for (auto e : m[i]) {
+      if (e.second > mx) {
+        mx = e.second;
+        res = e.first;
+      }
+    }
+
+    cout << res;
+    if (i != m.size() - 1) {
+      cout << ", ";
+    }
+  }
 
   return 0;
 }
