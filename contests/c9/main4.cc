@@ -217,16 +217,82 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
+  map<char, i64> msg;
   str s;
   getline(cin, s);
-  i64 res = 0;
-  for (auto e : s) {
-    if (tolower(e) == 'b') {
-      res++;
+  stringstream ss(s);
+  while (ss.good()) {
+    ss >> s;
+    for (auto e : s) {
+      msg[e]++;
     }
   }
 
-  cout << res << endl;
+  i64 n;
+  cin >> n;
+  cin.get();
+  map<char, i64> v;
+  vec<char> dict;
+  for (i64 tc : range(n)) {
+    getline(cin, s);
+
+    char c = s[0];
+    bool found = false;
+    for (auto e : dict) {
+      if (c == e) {
+        found = true;
+      }
+    }
+    if (!found) {
+      dict.psb(c);
+    }
+
+    for (auto e : s) {
+      v[e]++;
+    }
+  }
+
+  vec<pair<i64, char>> v1, v2;
+  for (auto e : msg) {
+    v1.push_back({e.sd, e.ft});
+  }
+  for (auto e : v) {
+    v2.push_back({e.sd, e.ft});
+  }
+  revsort(v1);
+  revsort(v2);
+
+  vec<pair<char, char>> res;
+  for (i64 i : range(v1.size())) {
+    res.push_back({v1[i].sd, v2[i].sd});
+  }
+
+  vec<pair<char, char>> ans;
+  for (auto x : dict) {
+    for (auto e : res) {
+      if (e.ft == x) {
+        ans.push_back({e.ft, e.sd});
+      }
+    }
+  }
+
+  i64 a, b;
+  cin >> a >> b;
+  for (i64 tc : range(a)) {
+    i64 ind;
+    cin >> ind;
+    vec<pair<char, char>> crt;
+    for (i64 i : range(b)) {
+      char x, y;
+      cin >> x >> y;
+      crt.push_back({x, y});
+    }
+
+    if (crt == ans) {
+      cout << ind << endl;
+      break;
+    }
+  }
 
   return 0;
 }

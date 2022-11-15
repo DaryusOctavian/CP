@@ -217,16 +217,64 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
+  map<char, i64> msg;
   str s;
   getline(cin, s);
-  i64 res = 0;
-  for (auto e : s) {
-    if (tolower(e) == 'b') {
-      res++;
+  stringstream ss(s);
+  while (ss.good()) {
+    ss >> s;
+    for (auto e : s) {
+      msg[e]++;
     }
   }
 
-  cout << res << endl;
+  i64 n;
+  cin >> n;
+  cin.get();
+  map<char, i64> v;
+  vec<char> dict;
+  for (i64 tc : range(n)) {
+    getline(cin, s);
+
+    char c = s[0];
+    bool found = false;
+    for (auto e : dict) {
+      if (c == e) {
+        found = true;
+      }
+    }
+    if (!found) {
+      dict.psb(c);
+    }
+
+    for (auto e : s) {
+      v[e]++;
+    }
+  }
+
+  vec<pair<i64, char>> v1, v2;
+  for (auto e : msg) {
+    v1.push_back({e.sd, e.ft});
+  }
+  for (auto e : v) {
+    v2.push_back({e.sd, e.ft});
+  }
+  revsort(v1);
+  revsort(v2);
+
+  vec<pair<char, char>> res;
+  for (i64 i : range(v1.size())) {
+    res.push_back({v1[i].sd, v2[i].sd});
+  }
+
+  for (auto x : dict) {
+    for (auto e : res) {
+      if (e.ft == x) {
+        cout << e.ft << " " << e.sd << endl;
+        break;
+      }
+    }
+  }
 
   return 0;
 }

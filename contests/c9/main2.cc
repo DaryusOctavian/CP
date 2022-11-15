@@ -217,16 +217,26 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  str s;
-  getline(cin, s);
-  i64 res = 0;
-  for (auto e : s) {
-    if (tolower(e) == 'b') {
-      res++;
+  i64 n;
+  cin >> n;
+  cin.get();
+  vec<str> init;
+  vi64 v(256, 0);
+  for (i64 tc : range(n)) {
+    str s;
+    getline(cin, s);
+    init.psb(s);
+    for (auto e : s) {
+      v[e]++;
     }
   }
 
-  cout << res << endl;
+  for (auto e : init) {
+    if (v[e[0]]) {
+      cout << v[e[0]] << endl;
+      v[e[0]] = 0;
+    }
+  }
 
   return 0;
 }

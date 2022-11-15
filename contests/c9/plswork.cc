@@ -217,16 +217,54 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
+  vec<str> msg;
   str s;
   getline(cin, s);
-  i64 res = 0;
-  for (auto e : s) {
-    if (tolower(e) == 'b') {
-      res++;
-    }
+  stringstream ss(s);
+  while (ss.good()) {
+    ss >> s;
+    msg.psb(s);
   }
 
-  cout << res << endl;
+  i64 n;
+  cin >> n;
+  cin.get();
+  map<char, i64> v;
+  set<str> dict;
+  for (i64 tc : range(n)) {
+    getline(cin, s);
+
+    dict.insert(s);
+  }
+
+  i64 a, b;
+  cin >> a >> b;
+  for (i64 i : range(a)) {
+    i64 ind;
+    cin >> ind;
+    map<char, char> rpl;
+    for (i64 eep : range(b)) {
+      char x, y;
+      cin >> x >> y;
+      rpl[x] = y;
+    }
+
+    bool ok = true;
+    for (auto word : msg) {
+      str nword = word;
+      for (auto &e : nword) {
+        e = rpl[e];
+      }
+
+      if (dict.find(nword) == dict.end()) {
+        ok = false;
+      }
+    }
+
+    if (ok) {
+      cout << ind << endl;
+    }
+  }
 
   return 0;
 }
