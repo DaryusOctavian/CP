@@ -1,11 +1,8 @@
 import sys
 
 def inputgen():
-    print("50 50")
     for _ in range(50):
-        for _ in range(50):
-            print("L", end='')
-        print()
+        print("Yes", end="")
 
 
 

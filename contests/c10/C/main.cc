@@ -217,19 +217,41 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  i64 n;
-  cin >> n;
+  i64 tc;
+  cin >> tc;
+  while (tc--) {
+    i64 l, r, x, a, b;
+    cin >> l >> r >> x >> a >> b;
 
-  vi64 v(n);
-  for (i64 i : range(n)) {
-    cout << i << endl;
-    v[i] = i;
-  }
+    if (b > r || b < l) {
+      cout << -1 << endl;
+      continue;
+    }
 
-  revsort(v);
+    if (a == b) {
+      cout << 0 << endl;
+      continue;
+    }
+    if (abs(a - b) >= x) {
+      cout << 1 << endl;
+      continue;
+    }
 
-  for (auto &e : v) {
-    cout << e << endl;
+    if (abs(l - a) >= x && abs(l - b) >= x) {
+      cout << 2 << endl;
+      continue;
+    }
+    if (abs(r - a) >= x && abs(r - b) >= x) {
+      cout << 2 << endl;
+      continue;
+    }
+
+    if (max(abs(l - b), abs(r - b)) >= x && max(abs(l - a), abs(r - a)) >= x) {
+      cout << 3 << endl;
+      continue;
+    }
+
+    cout << -1 << endl;
   }
 
   return 0;

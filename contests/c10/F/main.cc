@@ -208,6 +208,27 @@ template <typename T> number_range<T> range(T b, T e) {
 }
 #endif
 
+i64 n, b;
+
+void addone(i64 pos, deq<i64> &v, vb &vis) {
+  if (pos == -1) {
+    v.push_front(1);
+    vis[1] = true;
+    return;
+  }
+  if (v[pos] + 1 < b) {
+    v[pos] += 1;
+    vis[v[pos]] = true;
+    return;
+  }
+
+  v[pos] = 0;
+  vis[0] = true;
+  addone(pos - 1, v, vis);
+
+  return;
+}
+
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(0);
@@ -217,19 +238,18 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  i64 n;
-  cin >> n;
+  i64 tc;
+  cin >> tc;
+  while (tc--) {
+    cin >> n >> b;
+    deq<i64> v(n);
+    vb vis(b);
+    for (auto &e : v) {
+      cin >> e;
+      vis[e] = true;
+    }
 
-  vi64 v(n);
-  for (i64 i : range(n)) {
-    cout << i << endl;
-    v[i] = i;
-  }
-
-  revsort(v);
-
-  for (auto &e : v) {
-    cout << e << endl;
+    cout << b - accumulate(col(vis), 0) << endl;
   }
 
   return 0;

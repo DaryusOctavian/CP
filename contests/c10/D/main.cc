@@ -208,6 +208,37 @@ template <typename T> number_range<T> range(T b, T e) {
 }
 #endif
 
+u64 nlen(u64 x) {
+  u64 res = 0;
+
+  while (x) {
+    x /= 10;
+    res++;
+  }
+
+  return res;
+}
+
+u64 npow(u64 a, u64 b) {
+  i64 res = 1;
+
+  for (i64 i : range(b)) {
+    res *= a;
+  }
+
+  return res;
+}
+
+u64 nrt(u64 x) {
+  u64 res = 0;
+
+  while (x != 0 && x % 10 == 0) {
+    res++;
+    x /= 10;
+  }
+  return res;
+}
+
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(0);
@@ -217,19 +248,29 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  i64 n;
-  cin >> n;
+  i64 tc;
+  cin >> tc;
+  while (tc--) {
+    u64 a, b;
+    cin >> a >> b;
+    u64 n = nlen(b);
+    n = npow(10, n);
 
-  vi64 v(n);
-  for (i64 i : range(n)) {
-    cout << i << endl;
-    v[i] = i;
-  }
+    u64 res = 0;
+    for (u64 i = 1; i < n; i *= 10) {
+      b /= i;
+      b *= i;
 
-  revsort(v);
+      if (nrt(a * b) > nrt(res)) {
+        res = a * b;
+      } else if (nrt(a * b) == nrt(res)) {
+        if (res < a * b) {
+          res = a * b;
+        }
+      }
+    }
 
-  for (auto &e : v) {
-    cout << e << endl;
+    cout << res << endl;
   }
 
   return 0;

@@ -217,19 +217,30 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  i64 n;
-  cin >> n;
+  i64 tc;
+  cin >> tc;
+  while (tc--) {
+    bool found = false;
 
-  vi64 v(n);
-  for (i64 i : range(n)) {
-    cout << i << endl;
-    v[i] = i;
-  }
+    str e =
+        "YesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYes"
+        "YesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYes"
+        "YesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYes"
+        "YesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYes"
+        "YesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYes"
+        "YesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYes"
+        "YesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYes"
+        "YesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYes"
+        "YesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYes"
+        "YesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYesYes";
 
-  revsort(v);
+    str s;
+    cin >> s;
+    if (e.find(s) != string::npos) {
+      found = true;
+    }
 
-  for (auto &e : v) {
-    cout << e << endl;
+    cout << (found ? "YES" : "NO") << endl;
   }
 
   return 0;

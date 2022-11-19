@@ -217,19 +217,59 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  i64 n;
-  cin >> n;
+  i64 tc;
+  cin >> tc;
+  while (tc--) {
+    i64 n, p;
+    cin >> n >> p;
+    vi64 v(n);
+    for (auto &e : v) {
+      cin >> e;
+    }
 
-  vi64 v(n);
-  for (i64 i : range(n)) {
-    cout << i << endl;
-    v[i] = i;
-  }
+    revsort(v);
 
-  revsort(v);
+    i64 g = 2, b = 1;
+    i64 res = 0;
+    while (!v.empty()) {
+      if (p > v.back()) {
+        p += (pop(v) / 2);
+        res++;
+        continue;
+      }
 
-  for (auto &e : v) {
-    cout << e << endl;
+      if (g > 0 && 2 * p > v.back()) {
+        p *= 2;
+        g--;
+        continue;
+      }
+      if (b > 0 && 3 * p > v.back()) {
+        p *= 3;
+        b--;
+        continue;
+      }
+      if (g > 1 && 4 * p > v.back()) {
+        p *= 4;
+        g -= 2;
+        continue;
+      }
+      if (g > 0 && b > 0 && 6 * p > v.back()) {
+        p *= 6;
+        g--;
+        b--;
+        continue;
+      }
+      if (g > 1 && b > 0 && 12 * p > v.back()) {
+        p *= 12;
+        g -= 2;
+        b--;
+        continue;
+      }
+
+      break;
+    }
+
+    cout << res << endl;
   }
 
   return 0;
