@@ -1,0 +1,15 @@
+/home/alpha/Documents/VSCode/other/csharp/bin/Debug/net6.0/csharp
+/home/alpha/Documents/VSCode/other/csharp/bin/Debug/net6.0/csharp.deps.json
+/home/alpha/Documents/VSCode/other/csharp/bin/Debug/net6.0/csharp.runtimeconfig.json
+/home/alpha/Documents/VSCode/other/csharp/bin/Debug/net6.0/csharp.dll
+/home/alpha/Documents/VSCode/other/csharp/bin/Debug/net6.0/csharp.pdb
+/home/alpha/Documents/VSCode/other/csharp/obj/Debug/net6.0/csharp.csproj.AssemblyReference.cache
+/home/alpha/Documents/VSCode/other/csharp/obj/Debug/net6.0/csharp.GeneratedMSBuildEditorConfig.editorconfig
+/home/alpha/Documents/VSCode/other/csharp/obj/Debug/net6.0/csharp.AssemblyInfoInputs.cache
+/home/alpha/Documents/VSCode/other/csharp/obj/Debug/net6.0/csharp.AssemblyInfo.cs
+/home/alpha/Documents/VSCode/other/csharp/obj/Debug/net6.0/csharp.csproj.CoreCompileInputs.cache
+/home/alpha/Documents/VSCode/other/csharp/obj/Debug/net6.0/csharp.dll
+/home/alpha/Documents/VSCode/other/csharp/obj/Debug/net6.0/refint/csharp.dll
+/home/alpha/Documents/VSCode/other/csharp/obj/Debug/net6.0/csharp.pdb
+/home/alpha/Documents/VSCode/other/csharp/obj/Debug/net6.0/csharp.genruntimeconfig.cache
+/home/alpha/Documents/VSCode/other/csharp/obj/Debug/net6.0/ref/csharp.dll

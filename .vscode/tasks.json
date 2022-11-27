@@ -44,6 +44,16 @@
       "problemMatcher": ["$gcc"],
       "group": "build",
       "detail": "compiler: /usr/bin/g++"
+    },
+    {
+      "label": "build",
+      "command": "dotnet",
+      "type": "process",
+      "args": ["build csharp.csproj"],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "problemMatcher": "$tsc"
     }
   ]
 }
