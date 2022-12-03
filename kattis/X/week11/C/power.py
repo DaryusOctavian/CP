@@ -4,42 +4,59 @@ def main():
     n = int(input())
     for _ in range(n):
         inp = input().split()
+        if len(inp) < 2 or len(inp) > 3:
+            print("ne")
+            continue
 
-        a, b = 0, 0
-        found, cnt = 0, 0
-        s1, s2 = 0, 0
-        for ep in inp:
+        bad = False
+        x, y = 0, 0
+        cnt = 0
+        for e in inp:
             cnt += 1
+            a, b = e.split(":")
+            a = int(a)
+            b = int(b)
 
-            e = ep.split(':')
-            x = int(e[0])
-            y = int(e[1])
+            if not (a >= 6 or b >= 6):
+                bad = True
+                break
+            if (a > 6 or b > 6) and abs(a - b) > 2:
+                bad = True
+                break
 
-            s1 += x
-            s2 += y
+            if abs(a - b) > 1:
+                if (a > b):
+                    x += 1
+                else:
+                    y += 1
+            elif (a + b) == 13:
+                if a == 7 and b == 6 and cnt < 3:
+                    x += 1
+                elif a == 6 and b == 7 and cnt < 3:
+                    y += 1
 
-            if x - y > 1 and x >= 6:
-                a += 1
-            elif x - y < -1 and y >= 6:
-                b += 1
-
-            if a >= 2 or b >= 2:
-                found += 1
-            elif (a + b == 1 and cnt == 3):
-                found += 1
-            elif (a + b == 0 and abs(s1 - s2) == 2) and cnt == 2:
-                found += 1
-
-        if names[0] == "federer" and b != 0:
+        if bad:
             print("ne")
             continue
-        elif names[1] == "federer" and a != 0:
+
+        if x == 1 and y == 1:
             print("ne")
             continue
-        elif found == 1:
+        elif x == 3 and y == 0 or x == 0 and y == 3:
+            print("ne")
+            continue
+        elif x == 1 and y == 2 or x == 2 and y == 1:
             print("da")
-        else:
+            continue
+        elif names[0] == "federer" and y != 0:
             print("ne")
+            continue
+        elif names[1] == "federer" and x != 0:
+            print("ne")
+            continue
+        elif x == 2 and y == 0 or x == 0 and y == 2:
+            print("da")
+            continue
 
 
 main()
