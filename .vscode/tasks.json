@@ -54,6 +54,14 @@
         "cwd": "${fileDirname}"
       },
       "problemMatcher": "$tsc"
+    },
+    {
+      "type": "shell",
+      "label": "to cwd",
+      "command": "cd",
+      "args": ["${fileDirname}"],
+      "problemMatcher": [],
+      "isBackground": true
     }
   ]
 }
