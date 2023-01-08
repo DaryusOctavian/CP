@@ -208,172 +208,70 @@ template <typename T> number_range<T> range(T b, T e) {
 }
 #endif
 
-void readvb(vb &v) {
+void generateg(vi64 &v, str &s, i64 rg) {
+  vi64 prefix(sz(v) + 2);
+
+  for (i64 i = 0; i < sz(prefix) - 1; i++) {
+    prefix[i + 1] = prefix[i] + (s[i] == 'G' ? 1 : 0);
+  }
+
   for (i64 i : range(sz(v))) {
-    char x;
-    cin >> x;
-    v[i] = x - '0' == 1 ? true : false;
+    v[i] =
+        prefix[min(sz(prefix) - 1, i + rg + 1)] - prefix[max((i64)0, i - rg)];
   }
 }
 
-bool check1(i64 a, i64 b, vec<pair<vb, i64>> &v, i64 i, i64 j, i64 k) {
-  bool ok = true;
-  for (auto &e : v) {
-    i3 res;
-    if (e.ft[a] == 0) {
-      res = i;
-    } else if (e.ft[b] == 0) {
-      res = j;
-    } else {
-      res = k;
-    }
-    if (res != e.sd) {
-      ok = false;
-      break;
-    }
+void generateh(vi64 &v, str &s, i64 rg) {
+  vi64 prefix(sz(v) + 2);
+
+  for (i64 i = 0; i < sz(prefix) - 1; i++) {
+    prefix[i + 1] = prefix[i] + (s[i] == 'H' ? 1 : 0);
   }
 
-  return ok;
+  for (i64 i : range(sz(v))) {
+    v[i] =
+        prefix[min(sz(prefix) - 1, i + rg + 1)] - prefix[max((i64)0, i - rg)];
+  }
 }
 
-bool check2(i64 a, i64 b, vec<pair<vb, i64>> &v, i64 i, i64 j, i64 k) {
-  bool ok = true;
-  for (auto &e : v) {
-    i3 res;
-    if (e.ft[a] == 1) {
+i64 maxind(vi64 &v) {
+  i64 res = 0;
+  for (i64 i : range(sz(v))) {
+    if (v[i] > v[res]) {
       res = i;
-    } else if (e.ft[b] == 0) {
-      res = j;
-    } else {
-      res = k;
-    }
-    if (res != e.sd) {
-      ok = false;
-      break;
     }
   }
-
-  return ok;
+  return res;
 }
 
-bool check3(i64 a, i64 b, vec<pair<vb, i64>> &v, i64 i, i64 j, i64 k) {
-  bool ok = true;
-  for (auto &e : v) {
-    i3 res;
-    if (e.ft[a] == 0) {
-      res = i;
-    } else if (e.ft[b] == 1) {
-      res = j;
-    } else {
-      res = k;
-    }
-    if (res != e.sd) {
-      ok = false;
-      break;
+i64 nextmaxind(vi64 &v, i64 eep) {
+  i64 res = 0;
+  for (i64 i : range(sz(v))) {
+    if (i != eep) {
+      if (v[i] > v[res]) {
+        res = i;
+      }
     }
   }
-
-  return ok;
+  return res;
 }
 
-bool check4(i64 a, i64 b, vec<pair<vb, i64>> &v, i64 i, i64 j, i64 k) {
-  bool ok = true;
-  for (auto &e : v) {
-    i3 res;
-    if (e.ft[a] == 0) {
-      res = i;
-    } else if (e.ft[b] == 0) {
-      res = j;
-    } else {
-      res = k;
-    }
-    if (res != e.sd) {
-      ok = false;
-      break;
+void reduceg(i64 pos, str &s, i64 rg) {
+  for (i64 i :
+       range(max((u64)0, (u64)pos - rg), min(s.length(), (u64)pos + rg + 1))) {
+    if (s[i] == 'G') {
+      s[i] = '.';
     }
   }
-
-  return ok;
 }
 
-bool check5(i64 a, i64 b, vec<pair<vb, i64>> &v, i64 i, i64 j, i64 k) {
-  bool ok = true;
-  for (auto &e : v) {
-    i3 res;
-    if (e.ft[a] == 0) {
-      res = i;
-    } else if (e.ft[a] == 0) {
-      res = j;
-    } else {
-      res = k;
-    }
-    if (res != e.sd) {
-      ok = false;
-      break;
+void reduceh(i64 pos, str &s, i64 rg) {
+  for (i64 i :
+       range(max((u64)0, (u64)pos - rg), min(s.length(), (u64)pos + rg + 1))) {
+    if (s[i] == 'G') {
+      s[i] = '.';
     }
   }
-
-  return ok;
-}
-
-bool check6(i64 a, i64 b, vec<pair<vb, i64>> &v, i64 i, i64 j, i64 k) {
-  bool ok = true;
-  for (auto &e : v) {
-    i3 res;
-    if (e.ft[a] == 0) {
-      res = i;
-    } else if (e.ft[a] == 1) {
-      res = j;
-    } else {
-      res = k;
-    }
-    if (res != e.sd) {
-      ok = false;
-      break;
-    }
-  }
-
-  return ok;
-}
-
-bool check7(i64 a, i64 b, vec<pair<vb, i64>> &v, i64 i, i64 j, i64 k) {
-  bool ok = true;
-  for (auto &e : v) {
-    i3 res;
-    if (e.ft[a] == 1) {
-      res = i;
-    } else if (e.ft[a] == 0) {
-      res = j;
-    } else {
-      res = k;
-    }
-    if (res != e.sd) {
-      ok = false;
-      break;
-    }
-  }
-
-  return ok;
-}
-
-bool check8(i64 a, i64 b, vec<pair<vb, i64>> &v, i64 i, i64 j, i64 k) {
-  bool ok = true;
-  for (auto &e : v) {
-    i3 res;
-    if (e.ft[a] == 1) {
-      res = i;
-    } else if (e.ft[a] == 1) {
-      res = j;
-    } else {
-      res = k;
-    }
-    if (res != e.sd) {
-      ok = false;
-      break;
-    }
-  }
-
-  return ok;
 }
 
 int main() {
@@ -388,83 +286,76 @@ int main() {
   i64 tc;
   cin >> tc;
   while (tc--) {
-    i64 n, m;
-    cin >> n >> m;
+    i64 n, rg;
+    cin >> n >> rg;
 
-    vec<pair<vb, i64>> v(m, {vb(n), 0});
-    for (auto &e : v) {
-      for (i64 i : range(n)) {
-        char x;
-        cin >> x;
-        e.ft[i] = (x == '1' ? 1 : 0);
-      }
-      cin >> e.sd;
-    }
+    str s;
+    cin >> s;
 
-    bool found = false;
-    for (i64 i = 0; i < m; i++) {
-      for (i64 j = 0; j < m; j++) {
-        if (i == j) {
-          continue;
-        }
-        for (i64 a : range(2)) {
-          for (i64 b : range(2)) {
-            for (i64 c : range(2)) {
-              if (check1(i, j, v, a, b, c)) {
-                found = true;
-                break;
-              }
-              if (check2(i, j, v, a, b, c)) {
-                found = true;
-                break;
-              }
-              if (check3(i, j, v, a, b, c)) {
-                found = true;
-                break;
-              }
-              if (check4(i, j, v, a, b, c)) {
-                found = true;
-                break;
-              }
-              if (check5(i, j, v, a, b, c)) {
-                found = true;
-                break;
-              }
-              if (check6(i, j, v, a, b, c)) {
-                found = true;
-                break;
-              }
-              if (check7(i, j, v, a, b, c)) {
-                found = true;
-                break;
-              }
-              if (check8(i, j, v, a, b, c)) {
-                found = true;
-                break;
-              }
-            }
-            if (found) {
-              break;
-            }
-          }
-          if (found) {
-            break;
-          }
-        }
-        if (found) {
-          break;
-        }
-      }
-      if (found) {
+    vi64 peakg(n);
+    vi64 peakh(n);
+    generateg(peakg, s, rg);
+    generateh(peakh, s, rg);
+
+    vec<char> res(n, '.');
+    while (true) {
+      i64 g = maxind(peakg);
+      i64 h = maxind(peakh);
+
+      if (peakg[g] == 0 && peakh[h] == 0) {
         break;
       }
+
+      if (g != h) {
+        if (peakg[g]) {
+          res[g] = 'G';
+        }
+        if (peakh[h]) {
+          res[h] = 'H';
+        }
+        reduceg(g, s, rg);
+        generateg(peakg, s, rg);
+        reduceh(h, s, rg);
+        generateh(peakh, s, rg);
+      } else if (peakg[g] > peakh[h]) {
+        if (peakg[g]) {
+          res[g] = 'G';
+        }
+        reduceg(g, s, rg);
+        generateg(peakg, s, rg);
+        h = nextmaxind(peakh, h);
+        if (peakh[h]) {
+          res[h] = 'H';
+        }
+        reduceh(h, s, rg);
+        generateh(peakh, s, rg);
+      } else {
+        if (peakh[h]) {
+          res[h] = 'H';
+        }
+        reduceh(h, s, rg);
+        generateh(peakh, s, rg);
+        g = nextmaxind(peakg, g);
+        if (peakg[g]) {
+          res[g] = 'G';
+        }
+        reduceg(g, s, rg);
+        generateg(peakg, s, rg);
+      }
     }
 
-    if (found) {
-      cout << "OK" << endl;
-    } else {
-      cout << "LIE" << endl;
+    i64 crt = 0;
+    for (auto &e : res) {
+      if (e != '.') {
+        crt++;
+      }
     }
+
+    cout << crt << endl;
+    for (auto &e : res) {
+      cout << e;
+    }
+    cout << endl;
   }
 
   return 0;

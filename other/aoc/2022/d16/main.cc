@@ -225,8 +225,6 @@ number_range<T> range(T b, T e) {
 }
 #endif
 
-void doThing(i64 e, i64 &t) { cout << e * t - 3 << endl; }
-
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(0);
@@ -238,15 +236,7 @@ int main() {
 
   i64 n;
   cin >> n;
-  for (i64 i : range(n)) {
-    doThing(i, n);
-  }
 
-  cout << "Done\n";
-
-  for (i64 i : range(n)) {
-    cout << i << endl;
-  }
   return 0;
 }
 

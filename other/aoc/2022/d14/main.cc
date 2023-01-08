@@ -17,6 +17,9 @@
 
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
+#include <iterator>
+#include <sstream>
+#include <string>
 
 using namespace std;
 using namespace __gnu_pbds;
@@ -225,7 +228,34 @@ number_range<T> range(T b, T e) {
 }
 #endif
 
-void doThing(i64 e, i64 &t) { cout << e * t - 3 << endl; }
+bool procces(vec<vec<char>> &v, i64 lwt) {
+  i64 x = 0, y = 500;
+
+  while (x <= lwt) {
+    if (v[x + 1][y] == '.') {
+      x += 1;
+      continue;
+    }
+    if (v[x + 1][y - 1] == '.') {
+      x += 1;
+      y -= 1;
+      continue;
+    }
+    if (v[x + 1][y + 1] == '.') {
+      x += 1;
+      y += 1;
+      continue;
+    }
+    break;
+  }
+  if (x == 0 && y == 500) {
+    v[x][y] = '0';
+    return false;
+  }
+
+  v[x][y] = '0';
+  return true;
+}
 
 int main() {
   ios_base::sync_with_stdio(false);
@@ -236,17 +266,55 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  i64 n;
-  cin >> n;
-  for (i64 i : range(n)) {
-    doThing(i, n);
+  vec<vec<char>> v(1e3, vec<char>(1e3, '.'));
+
+  i64 lowestPointInLife = 0;
+  while (!cin.eof()) {
+    str s;
+    getline(cin, s);
+    stringstream ss(s);
+    i64 x = -1, y = -1;
+    char trash;
+    while (!ss.eof()) {
+      if (x == -1 && y == -1) {
+        ss >> y >> trash >> x;
+        continue;
+      }
+
+      lowestPointInLife = max(lowestPointInLife, x);
+      i64 newX, newY;
+      ss >> trash >> trash >> newY >> trash >> newX;
+      lowestPointInLife = max(lowestPointInLife, newX);
+      if (x == newX) {
+        for (i64 i = min(y, newY); i <= max(y, newY); i++) {
+          v[x][i] = '#';
+        }
+      } else {
+        for (i64 i = min(x, newX); i <= max(x, newX); i++) {
+          v[i][y] = '#';
+        }
+      }
+
+      x = newX;
+      y = newY;
+    }
   }
 
-  cout << "Done\n";
+  lowestPointInLife += 1;
 
-  for (i64 i : range(n)) {
-    cout << i << endl;
+  while (procces(v, lowestPointInLife)) {
+    continue;
   }
+
+  i64 res = 0;
+  for (i64 i : range((i64)0, lowestPointInLife + 1)) {
+    for (i64 j : range(1e3)) {
+      res += v[i][j] == '0' ? 1 : 0;
+    }
+  }
+
+  cout << res << endl;
+
   return 0;
 }
 

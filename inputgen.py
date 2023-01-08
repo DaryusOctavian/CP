@@ -1,9 +1,11 @@
 import sys
 
-def inputgen():
-    for _ in range(50):
-        print("Yes", end="")
 
+def inputgen():
+    crt = 1
+    for i in range(100):
+        print(crt, end=',')
+        crt += i
 
 
 with open("input.txt", "w") as f:

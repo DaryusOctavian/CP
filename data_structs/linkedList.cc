@@ -49,15 +49,11 @@ using i128 = __int128_t;
 #endif
 #define endl '\n'
 
-template <typename T>
-using vec = vector<T>;
-template <typename T>
-using deq = deque<T>;
-template <typename K, typename V>
-using umap = unordered_map<K, V>;
+template <typename T> using vec = vector<T>;
+template <typename T> using deq = deque<T>;
+template <typename K, typename V> using umap = unordered_map<K, V>;
 
-template <typename K, typename V>
-using hmap = cc_hash_table<K, V>;
+template <typename K, typename V> using hmap = cc_hash_table<K, V>;
 
 using str = string;
 using vb = vec<bool>;
@@ -110,13 +106,12 @@ const i6 ONE = 1;
 const i6 _1 = ONE;
 
 namespace std {
-template <typename T1, typename T2>
-struct hash<pair<T1, T2>> {
+template <typename T1, typename T2> struct hash<pair<T1, T2>> {
   std::size_t operator()(const pair<T1, T2> &pair) const noexcept {
     return hash<T1>()(pair.first) ^ hash<T2>()(pair.second);
   }
 };
-}  // namespace std
+} // namespace std
 
 template <typename T1, typename T2>
 istream &operator>>(istream &stream, pair<T1, T2> &p) {
@@ -130,8 +125,7 @@ ostream &operator<<(ostream &stream, const pair<T1, T2> &p) {
   return stream << p.ft << " " << p.sd;
 }
 
-template <typename T>
-istream &operator>>(istream &stream, vec<T> &v) {
+template <typename T> istream &operator>>(istream &stream, vec<T> &v) {
   if (v.empty()) {
     u6 len;
     stream >> len;
@@ -143,8 +137,7 @@ istream &operator>>(istream &stream, vec<T> &v) {
   return stream;
 }
 
-template <typename T>
-ostream &operator<<(ostream &stream, const vec<T> &v) {
+template <typename T> ostream &operator<<(ostream &stream, const vec<T> &v) {
   if (!v.empty()) {
     stream << v[0];
   }
@@ -154,8 +147,7 @@ ostream &operator<<(ostream &stream, const vec<T> &v) {
   return stream;
 }
 
-template <typename T>
-istream &operator>>(istream &stream, deq<T> &v) {
+template <typename T> istream &operator>>(istream &stream, deq<T> &v) {
   if (v.empty()) {
     u6 len;
     stream >> len;
@@ -167,8 +159,7 @@ istream &operator>>(istream &stream, deq<T> &v) {
   return stream;
 }
 
-template <typename T>
-ostream &operator<<(ostream &stream, const deq<T> &v) {
+template <typename T> ostream &operator<<(ostream &stream, const deq<T> &v) {
   if (!v.empty()) {
     stream << v[0];
   }
@@ -178,22 +169,19 @@ ostream &operator<<(ostream &stream, const deq<T> &v) {
   return stream;
 }
 
-template <typename T>
-inline T pop(vector<T> &stack) {
+template <typename T> inline T pop(vector<T> &stack) {
   T top = stack.back();
   stack.pop_back();
   return top;
 }
 
-template <typename T>
-inline T popb(deq<T> &que) {
+template <typename T> inline T popb(deq<T> &que) {
   T top = que.back();
   que.pop_back();
   return top;
 }
 
-template <typename T>
-inline T popf(deq<T> &que) {
+template <typename T> inline T popf(deq<T> &que) {
   T top = que.front();
   que.pop_front();
   return top;
@@ -206,47 +194,138 @@ struct number_iterator : std::iterator<random_access_iterator_tag, T> {
   operator T &() { return v; }
   T operator*() const { return v; }
 };
-template <typename T>
-struct number_range {
+template <typename T> struct number_range {
   T b, e;
   number_range(T b, T e) : b(b), e(e) {}
   number_iterator<T> begin() { return b; }
   number_iterator<T> end() { return e; }
 };
 
-template <typename T>
-number_range<T> range(T e) {
+template <typename T> number_range<T> range(T e) {
   return number_range<T>(0, e);
 }
 
-template <typename T>
-number_range<T> range(T b, T e) {
+template <typename T> number_range<T> range(T b, T e) {
   return number_range<T>(b, e);
 }
 #endif
 
-void doThing(i64 e, i64 &t) { cout << e * t - 3 << endl; }
+template <typename T> class linkedList {
+private:
+  class Node {
+  public:
+    Node *pointsTo = NULL;
+    T data;
+  };
+  Node *head = nullptr;
+  Node *tail = nullptr;
+  u64 _size = 0;
+
+public:
+  void append(T element) {
+    auto node = (Node *)malloc(sizeof(Node));
+    node->data = element;
+    if (head == NULL) {
+      head = node;
+      tail = node;
+    } else {
+      tail->pointsTo = node;
+      tail = node;
+    }
+    _size++;
+  }
+
+  void remove(u64 pos) {
+    if (pos >= _size) {
+      throw std::runtime_error("index out of range");
+    }
+
+    if (pos == 0) {
+      auto crt = head;
+      head = head->pointsTo;
+      free(crt);
+    } else {
+      auto prev = head;
+      auto crt = head->pointsTo;
+      for (i64 i = 1; i < pos; i++) {
+        prev = crt;
+        crt = crt->pointsTo;
+      }
+      prev->pointsTo = crt->pointsTo;
+      free(crt);
+    }
+    _size--;
+  }
+
+  void insert(T element, u64 pos) {
+    auto node = (Node *)malloc(sizeof(Node));
+    node->data = element;
+
+    auto crt = head;
+    for (i64 i = 1; i < pos; i++) {
+      crt = crt->pointsTo;
+    }
+
+    auto next = crt->pointsTo;
+    crt->pointsTo = node;
+    node->pointsTo = next;
+    _size++;
+  }
+
+  T &operator[](u64 pos) {
+    if (pos >= _size) {
+      throw std::runtime_error("index out of range");
+    }
+    Node *current = head;
+    for (i64 i = 0; i < pos; i++) {
+      current = (*current).pointsTo;
+    }
+
+    return (*current).data;
+  }
+
+  u64 size() { return _size; }
+
+  ~linkedList() {
+    auto crt = head;
+    for (i64 i = 0; i < _size; i++) {
+      auto next = crt->pointsTo;
+      free(crt);
+      crt = next;
+    }
+    free(crt);
+  }
+};
+
+void print(linkedList<i64> &l) {
+  for (i64 i = 0; i < l.size(); i++) {
+    cout << l[i] << " ";
+  }
+  cout << endl;
+}
 
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(0);
   cout.tie(0);
 #ifdef LOCAL
-  ifstream cin{"input.txt"};
-  ofstream cout{"output.txt"};
+  // ifstream cin{"input.txt"};
+  // ofstream cout{"output.txt"};
 #endif
 
-  i64 n;
-  cin >> n;
-  for (i64 i : range(n)) {
-    doThing(i, n);
-  }
+  linkedList<i64> l;
 
-  cout << "Done\n";
+  l.append(23);
+  l.append(24);
+  l.append(25);
+  print(l);
 
-  for (i64 i : range(n)) {
-    cout << i << endl;
-  }
+  l.remove(1);
+  print(l);
+
+  l.insert(26, 1);
+  print(l);
+
   return 0;
 }
 

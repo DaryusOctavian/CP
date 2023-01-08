@@ -1,15 +1,13 @@
 /*
-  _______                        ______               __
- /       \                      /      \             /  |
- $$$$$$$  |  ______    _______ /$$$$$$  |  _______  _$$ |_
- $$ |  $$ | /      \  /       |$$ |  $$ | /       |/ $$   |
- $$ |  $$ |/$$$$$$  |/$$$$$$$/ $$ |  $$ |/$$$$$$$/ $$$$$$/
- $$ |  $$ |$$ |  $$/ $$      \ $$ |  $$ |$$ |        $$ | __
- $$ |__$$ |$$ |       $$$$$$  |$$ \__$$ |$$ \_____   $$ |/  |
- $$    $$/ $$ |      /     $$/ $$    $$/ $$       |  $$  $$/
- $$$$$$$/  $$/       $$$$$$$/   $$$$$$/   $$$$$$$/    $$$$/
+________  ________  ________  ________  ________ _________
+|\   ___ \|\   __  \|\   ____\|\   __  \|\   ____\___   ___\
+\ \  \_|\ \ \  \|\  \ \  \___|\ \  \|\  \ \  \___\|___ \  \_|
+ \ \  \ \ \ \   _  _\ \_____  \ \  \  \ \  \       \ \  \
+  \ \  \_\ \ \  \  \|____|\  \ \  \  \ \  \____   \ \  \
+   \ \_______\ \__\ _\ ____\_\  \ \_______\ \_______\  \ \__\
+    \|_______|\|__|\|__|\_________\|_______|\|_______|   \|__|
+                       \|_________|
 */
-
 #ifndef __AHA__HEADER
 #define __AHA__HEADER
 
@@ -49,15 +47,11 @@ using i128 = __int128_t;
 #endif
 #define endl '\n'
 
-template <typename T>
-using vec = vector<T>;
-template <typename T>
-using deq = deque<T>;
-template <typename K, typename V>
-using umap = unordered_map<K, V>;
+template <typename T> using vec = vector<T>;
+template <typename T> using deq = deque<T>;
+template <typename K, typename V> using umap = unordered_map<K, V>;
 
-template <typename K, typename V>
-using hmap = cc_hash_table<K, V>;
+template <typename K, typename V> using hmap = cc_hash_table<K, V>;
 
 using str = string;
 using vb = vec<bool>;
@@ -110,13 +104,12 @@ const i6 ONE = 1;
 const i6 _1 = ONE;
 
 namespace std {
-template <typename T1, typename T2>
-struct hash<pair<T1, T2>> {
+template <typename T1, typename T2> struct hash<pair<T1, T2>> {
   std::size_t operator()(const pair<T1, T2> &pair) const noexcept {
     return hash<T1>()(pair.first) ^ hash<T2>()(pair.second);
   }
 };
-}  // namespace std
+} // namespace std
 
 template <typename T1, typename T2>
 istream &operator>>(istream &stream, pair<T1, T2> &p) {
@@ -130,8 +123,7 @@ ostream &operator<<(ostream &stream, const pair<T1, T2> &p) {
   return stream << p.ft << " " << p.sd;
 }
 
-template <typename T>
-istream &operator>>(istream &stream, vec<T> &v) {
+template <typename T> istream &operator>>(istream &stream, vec<T> &v) {
   if (v.empty()) {
     u6 len;
     stream >> len;
@@ -143,8 +135,7 @@ istream &operator>>(istream &stream, vec<T> &v) {
   return stream;
 }
 
-template <typename T>
-ostream &operator<<(ostream &stream, const vec<T> &v) {
+template <typename T> ostream &operator<<(ostream &stream, const vec<T> &v) {
   if (!v.empty()) {
     stream << v[0];
   }
@@ -154,8 +145,7 @@ ostream &operator<<(ostream &stream, const vec<T> &v) {
   return stream;
 }
 
-template <typename T>
-istream &operator>>(istream &stream, deq<T> &v) {
+template <typename T> istream &operator>>(istream &stream, deq<T> &v) {
   if (v.empty()) {
     u6 len;
     stream >> len;
@@ -167,8 +157,7 @@ istream &operator>>(istream &stream, deq<T> &v) {
   return stream;
 }
 
-template <typename T>
-ostream &operator<<(ostream &stream, const deq<T> &v) {
+template <typename T> ostream &operator<<(ostream &stream, const deq<T> &v) {
   if (!v.empty()) {
     stream << v[0];
   }
@@ -178,22 +167,19 @@ ostream &operator<<(ostream &stream, const deq<T> &v) {
   return stream;
 }
 
-template <typename T>
-inline T pop(vector<T> &stack) {
+template <typename T> inline T pop(vector<T> &stack) {
   T top = stack.back();
   stack.pop_back();
   return top;
 }
 
-template <typename T>
-inline T popb(deq<T> &que) {
+template <typename T> inline T popb(deq<T> &que) {
   T top = que.back();
   que.pop_back();
   return top;
 }
 
-template <typename T>
-inline T popf(deq<T> &que) {
+template <typename T> inline T popf(deq<T> &que) {
   T top = que.front();
   que.pop_front();
   return top;
@@ -206,26 +192,21 @@ struct number_iterator : std::iterator<random_access_iterator_tag, T> {
   operator T &() { return v; }
   T operator*() const { return v; }
 };
-template <typename T>
-struct number_range {
+template <typename T> struct number_range {
   T b, e;
   number_range(T b, T e) : b(b), e(e) {}
   number_iterator<T> begin() { return b; }
   number_iterator<T> end() { return e; }
 };
 
-template <typename T>
-number_range<T> range(T e) {
+template <typename T> number_range<T> range(T e) {
   return number_range<T>(0, e);
 }
 
-template <typename T>
-number_range<T> range(T b, T e) {
+template <typename T> number_range<T> range(T b, T e) {
   return number_range<T>(b, e);
 }
 #endif
-
-void doThing(i64 e, i64 &t) { cout << e * t - 3 << endl; }
 
 int main() {
   ios_base::sync_with_stdio(false);
@@ -236,17 +217,56 @@ int main() {
   ofstream cout{"output.txt"};
 #endif
 
-  i64 n;
-  cin >> n;
-  for (i64 i : range(n)) {
-    doThing(i, n);
+  i64 tc;
+  cin >> tc;
+  while (tc--) {
+    i64 n, m;
+    cin >> n >> m;
+
+    map<vi64, i64> mp;
+    vec<pair<vi64, i64>> v(m, {vi64(n), 0});
+    for (auto &e : v) {
+      for (i64 i : range(n)) {
+        char x;
+        cin >> x;
+        e.ft[i] = x == '1' ? 1 : 0;
+      }
+
+      i64 eep;
+      cin >> eep;
+      mp[e.ft] = eep;
+      e.sd = eep;
+    }
+
+    bool ok = true;
+    for (i64 i : range(m)) {
+      for (i64 j : range(m)) {
+        if (i == j) {
+          continue;
+        }
+        auto e = v[i].ft;
+        for (i64 i : range(n)) {
+          e[i] = (e[i] + v[j].ft[i]) == 1 ? 1 : 0;
+        }
+        if (mp.find(e) != mp.end()) {
+          auto crt = v[i].sd | v[j].sd;
+          if (mp[e] != crt) {
+            ok = false;
+          }
+        }
+      }
+      if (!ok) {
+        break;
+      }
+    }
+
+    if (ok) {
+      cout << "OK" << endl;
+    } else {
+      cout << "LIE" << endl;
+    }
   }
 
-  cout << "Done\n";
-
-  for (i64 i : range(n)) {
-    cout << i << endl;
-  }
   return 0;
 }
 
