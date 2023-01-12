@@ -253,12 +253,11 @@ int main() {
 #endif
 
   ifstream cin{"caps.in"};
-  ofstream cout{"caps.out"};
+  ifstream cout{"caps.out"};
 
   i64 k, q;
   str s;
-  scanf("%ld %ld", &k, &q);
-  scanf("%s", &s);
+  cin >> k >> q >> s;
   vi64 freq1(52, 0);
   vi64 freq2(52, 0);
   str capsS = s;
