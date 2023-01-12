@@ -253,7 +253,7 @@ int main() {
 #endif
 
   ifstream cin{"caps.in"};
-  ifstream cout{"caps.out"};
+  ofstream cout{"caps.out"};
 
   i64 k, q;
   str s;
