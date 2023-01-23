@@ -1,0 +1,86 @@
+IMPORTANT !!!
+
+=======================================================================
+Pentru ca evaluatorul sa detecteze compilatoarele
+EVALUATI din ACELASI CONT din care s-a instalat Kit-ul OJI !!
+=======================================================================
+
+1. Se recomanda ca evaluarea sa se faca pe W7/W8
+
+   Daca evaluarea are loc pe Vista, Windows 8 sau Windows 10
+   atunci INAINTE DE UTILIZAREA EVALUATORULUI se instaleaza:
+
+	-  .NET Framework 3.5       http://www.microsoft.com/en-us/download/details.aspx?id=21
+
+	-  .NET Framework 4.0 Client Profile     http://www.microsoft.com/en-us/download/details.aspx?id=24872
+
+
+
+2. Evaluatorul functioneaza NUMAI daca s-a intalat in prealabil Kitul OJI 2017 (deoarece Codeblocks 16.01 suporta pe deplin Standardul C++11) 
+   
+
+
+3. INSTALAREA EVALUATORULUI:
+
+  - Se instaleaza evaluatorul lansand fisierul .msi 
+
+
+
+4. PRECONDITII - EVALUARE:
+
+  - Se intaleaza Kit-ul OJI (atat Code::Blocks, cat si Free Pascal)
+  - Se dezinstaleaza antivirusul (in cel  mai rau caz se dezactiveaza)
+  - Windows Defender - off
+  - Windows Update - off
+  - Browser - inchis 
+  - Oricare alta aplicatie - inchisa.
+
+
+
+5. PREGATIREA EVALUARII:
+
+  - Se lanseaza evaluatorul (shortcut, pe desktop !).
+
+  - Se copiaza sursele concurentilor in folderele: 
+
+          Eval_OJI_2018_[clasa]\probleme\[nume_problema_1]\surse_concurenti 
+	
+	  Eval_OJI_2018_[clasa]\probleme\[nume_problema_2]\surse_concurenti
+
+   - Optional, se pot importa datele concurentilor dintr-un fisier .xls. [Setari->Concurenti->Importa]
+
+
+
+6. COMPILARE
+	
+	Comisia poate alege mai multe variante de compilare
+
+	Exemple:
+	- In panoul de compilare, se bifeaza checkbox-ul "Toate problemele", 
+   	   apoi se apasa butonul "Compileaza"	
+	- Se selecteaza o singura problema, se bifeaza checkbox-ul "Toate" si se compileaza doar sursele acelei probleme.
+ 
+
+
+7. EVALUARE
+
+	Comisia poate alege mai multe variante de evaluare.
+
+	Exemple:
+	- In panoul de evaluare, se bifeaza checkbox-ul "Toate problemele", apoi se apasa "Evalueaza". 
+	   Astfel se evalueaza toate sursele ambelor probleme, pe toate testele. 
+	- Se evalueaza automat toate sursele pentru o singura problema
+	- Se evalueaza automat cate o sursa pe toate testele
+	- Se evalueaza cate o singura sursa test cu test (bifa "Test cu test"). 
+
+ 
+8. RAPOARTE
+   	- Atat rapoartele de compilare, cat si cele de evaluare, se acceseaza din meniu.
+	- Evaluatorul produce si fisierul Clasament.xls. 
+
+
+
+
+
+
+  

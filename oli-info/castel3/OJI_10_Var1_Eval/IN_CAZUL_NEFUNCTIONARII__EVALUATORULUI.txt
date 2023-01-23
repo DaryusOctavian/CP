@@ -1,0 +1,30 @@
+RECOMANDARE:
+==================================================================
+Pentru ca evaluatorul sa detecteze compilatoarele 
+EVALUATI din ACELASI CONT din care s-a instalat Kit-ul OJI !
+==================================================================
+
+Daca nu se poate respecta recomandarea de mai sus, atunci
+doua probleme tehnice pot sa apara legate de functionarea evaluatorului:
+
+1. Evaluatorul nu gaseste calea spre compilatoare in registrii SO.
+   In aceasta situatie, procedati astfel:
+	- in evaluator, alegeti: Setari->Compilatoare 
+        - folositi butoanele browse pentru a alege caile :
+            Exemplu: Pentru C :      C:\OJI\Codeblocks\MinGW\bin\mingw32-gcc.exe
+                     Pentru C++:     C:\OJI\Codeblocks\MinGW\bin\mingw32-g++.exe  
+                     Pentru Pascal:  C:\OJI\FP\bin\i386-win32\fpc.exe
+        - Click OK
+
+
+2. Nu compileaza si/sau windows anunta lipsa unui .dll.
+   Asta inseamna ca evaluatorul nu gaseste in Path-ul SO calea spre compilatorul MinGW sau Free Pascal
+   In Windows 10, dar posibil si pe alte sistem de operare, trebuie adaugata calea spre compilator
+ in variabila de sistem "Path" astfel:
+
+- Control Panel->System and Security->System->Advanced system settings->Advanced
+- Click "Environment Variables"
+- Selectati "Path" din "System Variables", apoi selectati "Edit"
+- Click New si adaugati calea spre compilatorul MinGW (de pilda: C:\OJI\Codeblocks\MinGW\bin)
+- Click OK, OK, si RESTARTATI calculatorul.
+
