@@ -1,0 +1,14 @@
+{
+  "n: 1e5": {
+    "bubbleSort": "25.187",
+    "insertionSort": "9.048",
+    "selectionSort": "5.289",
+    "quickSort": "0.039"
+  },
+  "n: 1e5 -O3": {
+    "bubbleSort": "23.230",
+    "insertionSort": "1.369",
+    "selectionSort": "2.038",
+    "quickSort": "0.023"
+  }
+}
