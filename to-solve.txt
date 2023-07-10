@@ -39,3 +39,5 @@ left to do{
 data structures{
 	fenwick tree
 }
+
+last kattis added: autori
