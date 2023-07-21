@@ -2,5 +2,6 @@
   "editor.fontLigatures": true,
   "python.formatting.provider": "yapf",
   "python.analysis.typeCheckingMode": "basic",
-  "FSharp.suggestGitignore": false
+  "FSharp.suggestGitignore": false,
+  "dotnet.defaultSolution": "other/csharp/csharp.sln"
 }

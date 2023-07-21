@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/alpha/Documents/VSCode/other/csharp/csharp.csproj",
+      "projectUniqueName": "/home/alpha/VSCode/other/csharp/csharp.csproj",
       "projectName": "csharp",
-      "projectPath": "/home/alpha/Documents/VSCode/other/csharp/csharp.csproj",
+      "projectPath": "/home/alpha/VSCode/other/csharp/csharp.csproj",
       "packagesPath": "/home/alpha/.nuget/packages/",
-      "outputPath": "/home/alpha/Documents/VSCode/other/csharp/obj/",
+      "outputPath": "/home/alpha/VSCode/other/csharp/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/alpha/.nuget/NuGet/NuGet.Config"
@@ -54,12 +54,26 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[6.0.20, 6.0.20]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.linux-x64",
+            "version": "[6.0.20, 6.0.20]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[6.0.20, 6.0.20]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/opt/dotnet-sdk-bin-6.0/sdk/6.0.402/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.109/RuntimeIdentifierGraph.json"
       }
     }
   }
