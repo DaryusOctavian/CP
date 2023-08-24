@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "/Yf3zHGRtljvTH7KyRSAZwIJ2xbJN9c47qrHRRADATgF5pdc1/Ssj9zPpLplwz6CRT3Q3IS8UJJVxU92lFKe9A==",
+  "dgSpecHash": "gfTDwbs6g5IJ7gb/Uhqc4rTmux393vEcEJ9m5bE41/i5gfq3BvLp9I2VZ8XkvueyZyzpo3VSrFMuQpa+EQECUg==",
   "success": true,
   "projectFilePath": "/home/alpha/VSCode/other/csharp/csharp.csproj",
   "expectedPackageFiles": [
-    "/home/alpha/.nuget/packages/microsoft.netcore.app.ref/6.0.20/microsoft.netcore.app.ref.6.0.20.nupkg.sha512",
-    "/home/alpha/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.20/microsoft.aspnetcore.app.ref.6.0.20.nupkg.sha512",
-    "/home/alpha/.nuget/packages/microsoft.netcore.app.host.linux-x64/6.0.20/microsoft.netcore.app.host.linux-x64.6.0.20.nupkg.sha512"
+    "/home/alpha/.nuget/packages/microsoft.netcore.app.ref/6.0.21/microsoft.netcore.app.ref.6.0.21.nupkg.sha512",
+    "/home/alpha/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.21/microsoft.aspnetcore.app.ref.6.0.21.nupkg.sha512",
+    "/home/alpha/.nuget/packages/microsoft.netcore.app.host.linux-x64/6.0.21/microsoft.netcore.app.host.linux-x64.6.0.21.nupkg.sha512"
   ],
   "logs": []
 }
